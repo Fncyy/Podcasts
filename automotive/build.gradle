@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "hu.bme.aut.android.podcasts"
@@ -32,5 +31,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
+    implementation project(':shared')
 }
