@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Podcasts</string>
+    <string name="title_home">Podcasts</string>
+    <string name="title_search">Search</string>
+    <string name="title_favourites">Favourites</string>
+    <string name="bottom_nav_menu_home">Home</string>
+    <string name="bottom_nav_menu_search">Search</string>
+    <string name="bottom_nav_menu_favourites">Favourites</string>
+    <string name="bottom_nav_menu_menu">Menu</string>
 </resources>

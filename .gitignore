@@ -8,6 +8,7 @@
 /captures
 .externalNativeBuild
 .cxx
+apikey.properties
 
 # Project exclude paths
 /shared/build/
