@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/grid_0_5"
-    android:layout_marginVertical="@dimen/grid_0_25"
+    android:layout_marginHorizontal="@dimen/grid_1"
+    android:layout_marginVertical="@dimen/grid_0_5"
     android:background="?attr/colorSecondary">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorBackgroundFloating"
@@ -35,6 +36,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="The Cure for Chronic Pain with Nicole Sachs, LCSW" />
 
+            <ImageView
+                android:id="@+id/explicit_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_2"
+                android:src="@drawable/ic_baseline_explicit_24"
+                app:layout_constraintBottom_toBottomOf="@id/publisher_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/publisher_text" />
+
             <TextView
                 android:id="@+id/publisher_text"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -43,10 +54,8 @@
                 android:layout_marginStart="@dimen/grid_2"
                 android:layout_marginTop="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_2"
-                android:ellipsize="end"
-                android:maxLines="1"
                 app:layout_constraintEnd_toStartOf="@+id/thumbnail_image"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/explicit_image"
                 app:layout_constraintTop_toBottomOf="@+id/title_text"
                 app:layout_goneMarginEnd="@dimen/grid_2"
                 tools:text="Nicole Sachs, LCSW" />
@@ -68,9 +77,8 @@
 
             <ImageView
                 android:id="@+id/thumbnail_image"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="@dimen/grid_2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginTop="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_2"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -78,6 +86,6 @@
                 tools:src="@drawable/ic_launcher_background" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>

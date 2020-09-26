@@ -1,5 +1,6 @@
 package hu.bme.aut.android.podcasts.ui.home
 
+import android.util.Log
 import co.zsmb.rainbowcake.base.RainbowCakeViewModel
 import javax.inject.Inject
 
@@ -8,7 +9,9 @@ class HomeViewModel @Inject constructor(
 ) : RainbowCakeViewModel<HomeViewState>(Initial) {
 
     fun load() = execute {
-        viewState = HomeReady(homePresenter.getData())
+        val result = homePresenter.getBestPodcasts()
+        Log.d("result", result.toString())
+        viewState = HomeReady(result)
     }
 
 }

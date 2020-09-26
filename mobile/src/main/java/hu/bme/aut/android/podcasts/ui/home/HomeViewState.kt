@@ -6,4 +6,4 @@ object Initial : HomeViewState()
 
 object Loading : HomeViewState()
 
-data class HomeReady(val data: String = "") : HomeViewState()
+data class HomeReady(val bestPodcasts: HomePresenter.BestPodcasts) : HomeViewState()

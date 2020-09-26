@@ -102,8 +102,8 @@
 
             <ImageView
                 android:id="@+id/thumbnail_image"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_2"
                 app:layout_constraintBottom_toBottomOf="@+id/title_text"

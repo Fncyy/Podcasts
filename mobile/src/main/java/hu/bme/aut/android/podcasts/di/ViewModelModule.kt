@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import hu.bme.aut.android.podcasts.ui.favourites.FavouritesViewModel
 import hu.bme.aut.android.podcasts.ui.home.HomeViewModel
+import hu.bme.aut.android.podcasts.ui.menu.MenuViewModel
 import hu.bme.aut.android.podcasts.ui.search.SearchViewModel
 
 @Suppress("unused")
@@ -27,4 +28,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FavouritesViewModel::class)
     abstract fun bindFavouritesViewModel(favouritesViewModel: FavouritesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MenuViewModel::class)
+    abstract fun bindMenuViewModel(menuViewModel: MenuViewModel): ViewModel
 }
