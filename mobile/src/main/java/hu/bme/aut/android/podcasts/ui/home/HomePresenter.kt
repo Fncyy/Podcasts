@@ -25,6 +25,7 @@ class HomePresenter @Inject constructor(
         val id: String,
         val publisher: String,
         val thumbnail: String,
-        val title: String
+        val title: String,
+        var starred: Boolean = false
     )
 }

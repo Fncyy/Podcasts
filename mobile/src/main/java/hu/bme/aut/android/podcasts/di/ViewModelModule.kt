@@ -5,6 +5,7 @@ import co.zsmb.rainbowcake.dagger.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import hu.bme.aut.android.podcasts.ui.details.DetailsViewModel
 import hu.bme.aut.android.podcasts.ui.favourites.FavouritesViewModel
 import hu.bme.aut.android.podcasts.ui.home.HomeViewModel
 import hu.bme.aut.android.podcasts.ui.menu.MenuViewModel
@@ -18,6 +19,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     abstract fun bindHomeViewModel(homeViewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailsViewModel::class)
+    abstract fun bindDetailsViewModel(detailsViewModel: DetailsViewModel): ViewModel
 
     @Binds
     @IntoMap
