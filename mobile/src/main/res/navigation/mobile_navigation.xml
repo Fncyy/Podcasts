@@ -41,5 +41,11 @@
     <fragment
         android:id="@+id/navigation_menu"
         android:name="hu.bme.aut.android.podcasts.ui.menu.MenuFragment"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_navigation_menu_to_navigation_login"
+            app:destination="@id/navigation_login" />
+    </fragment>
+
+    <fragment android:id="@+id/navigation_login" />
 </navigation>

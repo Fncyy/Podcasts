@@ -4,12 +4,15 @@ import hu.bme.aut.android.podcasts.domain.PodcastInteractor
 import javax.inject.Inject
 
 class HomePresenter @Inject constructor(
-    private val podcastsInteractor: PodcastInteractor
+    private val podcastInteractor: PodcastInteractor
 ) {
 
     suspend fun getBestPodcasts(): BestPodcasts =
-        podcastsInteractor.getBestPodcasts(null, null, null).toBestPodcasts()
+        podcastInteractor.getBestPodcasts(null, null, null).toBestPodcasts()
 
+    suspend fun updateStarred(id: String, starred: Boolean) {
+        podcastInteractor.updateFavourites(id, starred)
+    }
 
     data class BestPodcasts(
         val hasNext: Boolean,
@@ -26,6 +29,6 @@ class HomePresenter @Inject constructor(
         val publisher: String,
         val thumbnail: String,
         val title: String,
-        var starred: Boolean = false
+        var starred: Boolean
     )
 }

@@ -1,20 +1,18 @@
-package hu.bme.aut.android.podcasts.domain
+package hu.bme.aut.android.podcasts.data.disk.entities
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-data class SearchResult(
-    val hasNext: Boolean,
-    val id: Int,
-    val name: String,
-    val nextPageNumber: Int,
-    val podcasts: List<Podcast>
-)
+const val BEST_PODCAST_TABLE_NAME = "BestPodcastItems"
 
-data class Podcast(
+@Entity(tableName = BEST_PODCAST_TABLE_NAME)
+class RoomBestPodcastItem(
+    @PrimaryKey
+    val id: String,
     val country: String,
     val description: String,
     val explicitContent: Boolean,
     val genres: String,
-    val id: String,
     val listenNotesUrl: String,
     val publisher: String,
     val thumbnail: String,

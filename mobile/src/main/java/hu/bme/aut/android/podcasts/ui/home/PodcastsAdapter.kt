@@ -10,17 +10,31 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import hu.bme.aut.android.podcasts.PodcastsApplication
 import hu.bme.aut.android.podcasts.R
 import hu.bme.aut.android.podcasts.ui.home.HomePresenter.Podcast
 import hu.bme.aut.android.podcasts.ui.home.PodcastsAdapter.ViewHolder
+import hu.bme.aut.android.podcasts.util.FavouriteDecoder
+import hu.bme.aut.android.podcasts.util.FavouriteDecoder.FavouriteListener
 import kotlinx.android.synthetic.main.item_podcast_home.view.*
+import javax.inject.Inject
 import kotlin.math.abs
 
-class PodcastsAdapter(val context: Context) : RecyclerView.Adapter<ViewHolder>() {
+class PodcastsAdapter(private val context: Context) :
+    RecyclerView.Adapter<ViewHolder>(),
+    FavouriteListener {
 
-    protected val podcasts: MutableList<Podcast> = mutableListOf()
+    @Inject
+    lateinit var favouriteDecoder: FavouriteDecoder
 
-    var podcastSelectionListener: PodcastSelectionListener? = null
+    init {
+        (context.applicationContext as PodcastsApplication).injector.inject(this)
+        favouriteDecoder.subscribe(this)
+    }
+
+    private val podcasts: MutableList<Podcast> = mutableListOf()
+
+    var podcastUpdateListener: PodcastUpdateListener? = null
 
     fun addElements(list: List<Podcast>) {
         val size = podcasts.size
@@ -45,11 +59,11 @@ class PodcastsAdapter(val context: Context) : RecyclerView.Adapter<ViewHolder>()
         ReboundingSwipeActionCallback.ReboundableViewHolder {
         private val cardView = itemView.item_card_view
         private val frame = itemView.item_root
-        private val title = itemView.title_text
-        private val publisher = itemView.publisher_text
-        private val explicit = itemView.explicit_image
-        private val categories = itemView.categories_text
-        private val thumbnail = itemView.thumbnail_image
+        private val title = itemView.titleText
+        private val publisher = itemView.publisherText
+        private val explicit = itemView.explicitImage
+        private val categories = itemView.categoriesText
+        private val thumbnail = itemView.thumbnailImage
 
         private var podcast: Podcast? = null
 
@@ -67,7 +81,7 @@ class PodcastsAdapter(val context: Context) : RecyclerView.Adapter<ViewHolder>()
 
             pos = position
 
-            ViewCompat.setTransitionName(cardView, item.id)
+            ViewCompat.setTransitionName(cardView, item.id + "root")
 
             title.text = item.title
             explicit.visibility = if (item.explicitContent) View.VISIBLE else View.GONE
@@ -82,9 +96,9 @@ class PodcastsAdapter(val context: Context) : RecyclerView.Adapter<ViewHolder>()
             cardView.setOnClickListener {
                 podcast?.let {
                     val extras = FragmentNavigatorExtras(
-                        cardView to it.id
+                        cardView to it.id + "root"
                     )
-                    podcastSelectionListener?.onPodcastSelected(it.id, extras)
+                    podcastUpdateListener?.onPodcastSelected(it.id, extras)
                 }
             }
             updateCardViewTopLeftCornerSize(if (item.starred) 1F else 0F)
@@ -118,9 +132,9 @@ class PodcastsAdapter(val context: Context) : RecyclerView.Adapter<ViewHolder>()
         }
 
         override fun onRebounded() {
-            // TODO("not implemented")
-            podcast.let {
-                podcasts[pos].starred = !(it!!.starred)
+            podcast?.let {
+                podcasts[pos].starred = !(it.starred)
+                podcastUpdateListener?.onPodcastStarred(it.id, it.starred)
             }
         }
 
@@ -138,7 +152,19 @@ class PodcastsAdapter(val context: Context) : RecyclerView.Adapter<ViewHolder>()
     }
 
 
-    interface PodcastSelectionListener {
+    interface PodcastUpdateListener {
         fun onPodcastSelected(id: String, extras: FragmentNavigator.Extras)
+        fun onPodcastStarred(id: String, starred: Boolean)
+    }
+
+    override fun onUpdated(id: String, starred: Boolean) {
+        podcasts.filter { podcast ->
+            podcast.id == id
+        }.run {
+            forEach {
+                it.starred = starred
+            }
+        }
+        notifyDataSetChanged()
     }
 }

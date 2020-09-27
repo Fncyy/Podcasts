@@ -13,12 +13,17 @@ import hu.bme.aut.android.podcasts.R
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
-    PodcastsAdapter.PodcastSelectionListener {
+    PodcastsAdapter.PodcastUpdateListener {
 
     override fun provideViewModel() = getViewModelFromFactory()
     override fun getViewResource() = R.layout.fragment_home
 
     private lateinit var podcastsAdapter: PodcastsAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.load()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,7 +39,7 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
 
     private fun setupRecyclerView() {
         podcastsAdapter = PodcastsAdapter(requireContext())
-        podcastsAdapter.podcastSelectionListener = this
+        podcastsAdapter.podcastUpdateListener = this
         bestPodcastsList.apply {
             val itemTouchHelper = ItemTouchHelper(ReboundingSwipeActionCallback())
             itemTouchHelper.attachToRecyclerView(this)
@@ -44,29 +49,37 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
 
     override fun onStart() {
         super.onStart()
-
-        viewModel.load()
     }
 
     override fun render(viewState: HomeViewState) {
+        homeProgress.visibility = View.INVISIBLE
+        bestPodcastsList.visibility = View.INVISIBLE
         when (viewState) {
             is HomeReady -> {
+                bestPodcastsList.visibility = View.VISIBLE
                 podcastsAdapter.addElements(viewState.bestPodcasts.podcasts)
+            }
+            is Loading -> {
+                homeProgress.visibility = View.VISIBLE
             }
         }
     }
 
     override fun onPodcastSelected(id: String, extras: FragmentNavigator.Extras) {
         exitTransition = MaterialElevationScale(false).apply {
-            duration = 300
+            duration = 500
         }
         reenterTransition = MaterialElevationScale(true).apply {
-            duration = 300
+            duration = 500
         }
         findNavController().navigate(
             HomeFragmentDirections.actionNavigationHomeToNavigationDetails(id),
             extras
         )
+    }
+
+    override fun onPodcastStarred(id: String, starred: Boolean) {
+        viewModel.updateStarred(id, starred)
     }
 
 }

@@ -25,44 +25,44 @@
             android:paddingBottom="@dimen/grid_2">
 
             <TextView
-                android:id="@+id/title_text"
+                android:id="@+id/titleText"
                 style="@style/TextAppearance.MaterialComponents.Headline5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/grid_2"
                 android:layout_marginTop="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_2"
-                app:layout_constraintEnd_toStartOf="@+id/thumbnail_image"
+                app:layout_constraintEnd_toStartOf="@+id/thumbnailImage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="The Cure for Chronic Pain with Nicole Sachs, LCSW" />
 
             <ImageView
-                android:id="@+id/explicit_image"
+                android:id="@+id/explicitImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/grid_2"
                 android:src="@drawable/ic_baseline_explicit_24"
-                app:layout_constraintBottom_toBottomOf="@id/publisher_text"
+                app:layout_constraintBottom_toBottomOf="@id/publisherText"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/publisher_text" />
+                app:layout_constraintTop_toTopOf="@id/publisherText" />
 
             <TextView
-                android:id="@+id/publisher_text"
+                android:id="@+id/publisherText"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/grid_2"
                 android:layout_marginTop="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_2"
-                app:layout_constraintEnd_toStartOf="@+id/thumbnail_image"
-                app:layout_constraintStart_toEndOf="@id/explicit_image"
-                app:layout_constraintTop_toBottomOf="@+id/title_text"
+                app:layout_constraintEnd_toStartOf="@+id/thumbnailImage"
+                app:layout_constraintStart_toEndOf="@id/explicitImage"
+                app:layout_constraintTop_toBottomOf="@+id/titleText"
                 app:layout_goneMarginEnd="@dimen/grid_2"
                 tools:text="Nicole Sachs, LCSW" />
 
             <TextView
-                android:id="@+id/categories_text"
+                android:id="@+id/categoriesText"
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -71,13 +71,14 @@
                 android:layout_marginEnd="@dimen/grid_2"
                 android:ellipsize="end"
                 android:maxLines="2"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/publisher_text"
+                app:layout_constraintTop_toBottomOf="@+id/publisherText"
                 tools:text="Alternative Health, Self-Help, Health &amp; Fitness, Spirituality, Religion &amp; Spirituality, Podcasts" />
 
             <ImageView
-                android:id="@+id/thumbnail_image"
+                android:id="@+id/thumbnailImage"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="@dimen/grid_1"

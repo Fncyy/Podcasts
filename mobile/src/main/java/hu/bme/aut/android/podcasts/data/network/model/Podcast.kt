@@ -8,7 +8,7 @@ data class Podcast(
     val explicit_content: Boolean?,
     val extra: Extra,
     val genre_ids: List<Int>,
-    val id: String?,
+    val id: String,
     val image: String?,
     val is_claimed: Boolean?,
     val itunes_id: Int?,

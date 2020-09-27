@@ -6,14 +6,14 @@ import javax.inject.Singleton
 
 @Singleton
 class GenreDecoder @Inject constructor(
-    private val podcastsInteractor: PodcastInteractor
+    private val podcastInteractor: PodcastInteractor
 ) {
     private val genres = mutableMapOf<Int, String>()
 
     private var initialized = false
 
     private suspend fun initialize() {
-        val response = podcastsInteractor.getGenres()
+        val response = podcastInteractor.getGenres()
         genres.putAll(response.genres)
         initialized = true
     }
