@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import com.google.android.material.transition.MaterialElevationScale
+import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -79,7 +80,7 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
     }
 
     override fun onPodcastStarred(id: String, starred: Boolean) {
-        viewModel.updateStarred(id, starred)
+        viewModel.updateStarred((activity as MainActivity).auth.currentUser, id, starred)
     }
 
 }

@@ -29,17 +29,17 @@ class PodcastInteractor @Inject constructor(
         return networkDataSource.getGenres()
     }
 
-    suspend fun getFavourites(): List<String> {
-        return listOf(
-            "d50f00edeb8c446f955f80716154a3a3",
-            "b83b5ecc70aa4d5294836981f2716a95"
-        )
-        // TODO return proper values
-    }
-
-    suspend fun updateFavourites(id: String, starred: Boolean) {
-        favouriteDecoder.get().updateStarred(id, starred)
+    suspend fun updateFavourites(uid: String, id: String, starred: Boolean) {
+        favouriteDecoder.get().updateStarred(uid, id, starred)
         // TODO save to firebase
         diskDataSource.updateFavourite(id, starred)
+    }
+
+    suspend fun getAvailableRegions(): List<Region> {
+        return networkDataSource.getAvailableRegions()
+    }
+
+    suspend fun getAvailableLanguages(): List<Language> {
+        return networkDataSource.getAvailableLanguages()
     }
 }

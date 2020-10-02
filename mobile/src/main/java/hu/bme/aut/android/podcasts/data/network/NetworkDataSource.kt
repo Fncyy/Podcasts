@@ -2,6 +2,8 @@ package hu.bme.aut.android.podcasts.data.network
 
 import dagger.Lazy
 import hu.bme.aut.android.podcasts.domain.GenresResult
+import hu.bme.aut.android.podcasts.domain.Language
+import hu.bme.aut.android.podcasts.domain.Region
 import hu.bme.aut.android.podcasts.domain.SearchResult
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.GenreDecoder
@@ -24,4 +26,10 @@ class NetworkDataSource @Inject constructor(
 
     suspend fun getGenres(topLevelOnly: Boolean = false): GenresResult =
         listenNotesAPI.getGenres(topLevelOnly = topLevelOnly.toInt()).toGenresResult()
+
+    suspend fun getAvailableRegions(): List<Region> =
+        listenNotesAPI.getRegions().regions.map { Region(it.key, it.value) }
+
+    suspend fun getAvailableLanguages(): List<Language> =
+        listenNotesAPI.getLanguages().languages.map { Language(it) }
 }

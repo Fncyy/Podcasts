@@ -8,6 +8,7 @@ import dagger.multibindings.IntoMap
 import hu.bme.aut.android.podcasts.ui.details.DetailsViewModel
 import hu.bme.aut.android.podcasts.ui.favourites.FavouritesViewModel
 import hu.bme.aut.android.podcasts.ui.home.HomeViewModel
+import hu.bme.aut.android.podcasts.ui.login.LoginViewModel
 import hu.bme.aut.android.podcasts.ui.menu.MenuViewModel
 import hu.bme.aut.android.podcasts.ui.search.SearchViewModel
 
@@ -39,4 +40,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MenuViewModel::class)
     abstract fun bindMenuViewModel(menuViewModel: MenuViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginViewModel::class)
+    abstract fun bindLoginViewModel(loginViewModel: LoginViewModel): ViewModel
 }

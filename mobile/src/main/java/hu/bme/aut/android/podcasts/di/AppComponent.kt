@@ -6,6 +6,7 @@ import dagger.Component
 import hu.bme.aut.android.podcasts.data.disk.DiskModule
 import hu.bme.aut.android.podcasts.data.network.NetworkModule
 import hu.bme.aut.android.podcasts.ui.home.PodcastsAdapter
+import hu.bme.aut.android.podcasts.util.UtilModule
 import javax.inject.Singleton
 
 @Singleton
@@ -15,6 +16,7 @@ import javax.inject.Singleton
         DiskModule::class,
         NetworkModule::class,
         RainbowCakeModule::class,
+        UtilModule::class,
         ViewModelModule::class
     ]
 )

@@ -1,9 +1,22 @@
 package hu.bme.aut.android.podcasts.ui.menu
 
-sealed class MenuViewState
+import hu.bme.aut.android.podcasts.domain.Language
+import hu.bme.aut.android.podcasts.domain.Region
+import hu.bme.aut.android.podcasts.domain.UserData
 
-object Initial : MenuViewState()
+
+sealed class MenuViewState
 
 object Loading : MenuViewState()
 
-data class MenuReady(val data: String = "") : MenuViewState()
+data class LoggedIn(
+    val userData: UserData,
+    val availableRegions: List<Region>,
+    val availableLanguages: List<Language>
+) : MenuViewState()
+
+data class LoggedOut(
+    val userData: UserData,
+    val availableRegions: List<Region>,
+    val availableLanguages: List<Language>
+) : MenuViewState()

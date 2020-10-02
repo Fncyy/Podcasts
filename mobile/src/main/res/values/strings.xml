@@ -1,10 +1,21 @@
 <resources>
     <string name="app_name">Podcasts</string>
+
     <string name="title_home">Podcasts</string>
     <string name="title_search">Search</string>
     <string name="title_favourites">Favourites</string>
+
     <string name="bottom_nav_menu_home">Home</string>
     <string name="bottom_nav_menu_search">Search</string>
     <string name="bottom_nav_menu_favourites">Favourites</string>
     <string name="bottom_nav_menu_menu">Menu</string>
+
+    <string name="menu_explicit_content">Explicit content</string>
+    <string name="menu_regions">Regions of Podcasts</string>
+    <string name="menu_languages">Languages of Podcasts</string>
+    <string name="menu_button_logout">Logout</string>
+    <string name="menu_button_login">Login</string>
+    <string name="menu_button_register">Register</string>
+    <string name="menu_profile_content_desc">Profile picture</string>
+    <string name="menu_logo_content_desc">Powered by Listen Notes logo</string>
 </resources>

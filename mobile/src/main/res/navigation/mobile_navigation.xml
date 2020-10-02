@@ -12,10 +12,6 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_details"
             app:destination="@id/navigation_details">
-            <argument
-                android:name="podcastId"
-                android:defaultValue=""
-                app:argType="string" />
         </action>
     </fragment>
 
@@ -43,9 +39,16 @@
         android:name="hu.bme.aut.android.podcasts.ui.menu.MenuFragment"
         tools:layout="@layout/fragment_menu">
         <action
-            android:id="@+id/action_navigation_menu_to_navigation_login"
-            app:destination="@id/navigation_login" />
+            android:id="@+id/action_navigation_menu_to_navigation_login_out_register"
+            app:destination="@id/navigation_login_out_register"></action>
     </fragment>
 
-    <fragment android:id="@+id/navigation_login" />
+    <fragment
+        android:id="@+id/navigation_login_out_register"
+        android:name="hu.bme.aut.android.podcasts.ui.login.LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <argument
+            android:name="logType"
+            app:argType="string" />
+    </fragment>
 </navigation>

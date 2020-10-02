@@ -1,6 +1,7 @@
 package hu.bme.aut.android.podcasts.ui.details
 
 import co.zsmb.rainbowcake.base.RainbowCakeViewModel
+import com.google.firebase.auth.FirebaseUser
 import javax.inject.Inject
 
 class DetailsViewModel @Inject constructor(
@@ -13,8 +14,9 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun updateStarred(id: String, starred: Boolean) = execute {
-        detailsPresenter.updateStarred(id, starred)
+    fun updateStarred(user: FirebaseUser?, id: String, starred: Boolean) = execute {
+        val uid = user?.uid ?: ""
+        detailsPresenter.updateStarred(uid, id, starred)
     }
 
 }

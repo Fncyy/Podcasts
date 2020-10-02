@@ -12,6 +12,7 @@ import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.transition.MaterialContainerTransform
+import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
 import hu.bme.aut.android.podcasts.ui.details.DetailsPresenter.Podcast
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -61,7 +62,11 @@ class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel>(
         starButton.setOnClickListener {
             it.isActivated = !it.isActivated
             podcast.starred = it.isActivated
-            viewModel.updateStarred(podcast.id, it.isActivated)
+            viewModel.updateStarred(
+                (activity as MainActivity).auth.currentUser,
+                podcast.id,
+                it.isActivated
+            )
         }
         starButton.isActivated = podcast.starred
         titleText.text = podcast.title

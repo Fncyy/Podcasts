@@ -10,8 +10,8 @@ class HomePresenter @Inject constructor(
     suspend fun getBestPodcasts(): BestPodcasts =
         podcastInteractor.getBestPodcasts(null, null, null).toBestPodcasts()
 
-    suspend fun updateStarred(id: String, starred: Boolean) {
-        podcastInteractor.updateFavourites(id, starred)
+    suspend fun updateStarred(uid: String, id: String, starred: Boolean) {
+        podcastInteractor.updateFavourites(uid, id, starred)
     }
 
     data class BestPodcasts(

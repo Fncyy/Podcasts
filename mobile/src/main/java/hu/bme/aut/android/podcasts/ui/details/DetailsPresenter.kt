@@ -11,8 +11,8 @@ class DetailsPresenter @Inject constructor(
         return podcastInteractor.getBestPodcastById(id)?.toPodcast()
     }
 
-    suspend fun updateStarred(id: String, starred: Boolean) {
-        podcastInteractor.updateFavourites(id, starred)
+    suspend fun updateStarred(uid: String, id: String, starred: Boolean) {
+        podcastInteractor.updateFavourites(uid, id, starred)
     }
 
     data class Podcast(
