@@ -15,6 +15,7 @@ import com.google.android.material.transition.MaterialContainerTransform
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
 import hu.bme.aut.android.podcasts.ui.details.DetailsPresenter.Podcast
+import hu.bme.aut.android.podcasts.util.PodcastStarActionDrawable
 import kotlinx.android.synthetic.main.fragment_details.*
 
 class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel>() {

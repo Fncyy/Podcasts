@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.ui.home
+package hu.bme.aut.android.podcasts.util
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,14 +13,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import hu.bme.aut.android.podcasts.PodcastsApplication
 import hu.bme.aut.android.podcasts.R
 import hu.bme.aut.android.podcasts.ui.home.HomePresenter.Podcast
-import hu.bme.aut.android.podcasts.ui.home.PodcastsAdapter.ViewHolder
-import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder.FavouriteListener
+import hu.bme.aut.android.podcasts.util.PodcastAdapter.ViewHolder
 import kotlinx.android.synthetic.main.item_podcast_home.view.*
 import javax.inject.Inject
 import kotlin.math.abs
 
-class PodcastsAdapter(private val context: Context) :
+class PodcastAdapter(private val context: Context) :
     RecyclerView.Adapter<ViewHolder>(),
     FavouriteListener {
 
@@ -157,7 +156,7 @@ class PodcastsAdapter(private val context: Context) :
         fun onPodcastStarred(id: String, starred: Boolean)
     }
 
-    override fun onUpdated(id: String, starred: Boolean) {
+    override fun onFavouriteUpdated(id: String, starred: Boolean) {
         podcasts.filter { podcast ->
             podcast.id == id
         }.run {

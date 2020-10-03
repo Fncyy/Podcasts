@@ -11,15 +11,17 @@ import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import com.google.android.material.transition.MaterialElevationScale
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
+import hu.bme.aut.android.podcasts.util.PodcastAdapter
+import hu.bme.aut.android.podcasts.util.ReboundingSwipeActionCallback
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
-    PodcastsAdapter.PodcastUpdateListener {
+    PodcastAdapter.PodcastUpdateListener {
 
     override fun provideViewModel() = getViewModelFromFactory()
     override fun getViewResource() = R.layout.fragment_home
 
-    private lateinit var podcastsAdapter: PodcastsAdapter
+    private lateinit var podcastAdapter: PodcastAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +41,12 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
     }
 
     private fun setupRecyclerView() {
-        podcastsAdapter = PodcastsAdapter(requireContext())
-        podcastsAdapter.podcastUpdateListener = this
+        podcastAdapter = PodcastAdapter(requireContext())
+        podcastAdapter.podcastUpdateListener = this
         bestPodcastsList.apply {
             val itemTouchHelper = ItemTouchHelper(ReboundingSwipeActionCallback())
             itemTouchHelper.attachToRecyclerView(this)
-            adapter = podcastsAdapter
+            adapter = podcastAdapter
         }
     }
 
@@ -58,7 +60,7 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
         when (viewState) {
             is HomeReady -> {
                 bestPodcastsList.visibility = View.VISIBLE
-                podcastsAdapter.addElements(viewState.bestPodcasts.podcasts)
+                podcastAdapter.addElements(viewState.bestPodcasts.podcasts)
             }
             is Loading -> {
                 homeProgress.visibility = View.VISIBLE

@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.ui.home
+package hu.bme.aut.android.podcasts.util
 
 import android.graphics.Canvas
 import android.view.View
@@ -57,14 +57,10 @@ class ReboundingSwipeActionCallback : ItemTouchHelper.SimpleCallback(
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float = Float.MAX_VALUE
 
     // Never dismiss.
-    override fun getSwipeVelocityThreshold(defaultValue: Float): Float {
-        return Float.MAX_VALUE
-    }
+    override fun getSwipeVelocityThreshold(defaultValue: Float): Float = Float.MAX_VALUE
 
     // Never dismiss.
-    override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
-        return Float.MAX_VALUE
-    }
+    override fun getSwipeEscapeVelocity(defaultValue: Float): Float = Float.MAX_VALUE
 
     override fun onMove(
         recyclerView: RecyclerView,

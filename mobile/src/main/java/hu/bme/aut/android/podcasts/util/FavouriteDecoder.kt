@@ -1,5 +1,6 @@
 package hu.bme.aut.android.podcasts.util
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import hu.bme.aut.android.podcasts.domain.UserInteractor
 import hu.bme.aut.android.podcasts.util.FirebaseDatabaseAccessor.FirebaseDatabaseInsertionListener
@@ -12,52 +13,52 @@ class FavouriteDecoder @Inject constructor(
     private val sharedPreferencesProvider: SharedPreferencesProvider,
     private val firebaseDatabaseAccessor: FirebaseDatabaseAccessor
 ) : FirebaseDatabaseInsertionListener {
-    private var initialized = false
 
     private val updateListeners: MutableList<FavouriteListener> = mutableListOf()
 
     private val favourites: MutableList<String> = mutableListOf()
 
-    private suspend fun initialize() {
+    private fun initialize() {
         val response =
             userInteractor.getFavourites(FirebaseAuth.getInstance().currentUser?.uid ?: "", this)
         favourites.apply {
             clear()
             addAll(response)
         }
-        initialized = true
     }
 
     fun subscribe(listener: FavouriteListener) {
         updateListeners.add(listener)
     }
 
-    suspend fun checkStarred(id: String): Boolean {
-        if (!initialized) initialize()
+    fun checkStarred(id: String): Boolean {
+        initialize()
         return favourites.contains(id)
     }
 
     fun updateStarred(userId: String, podcastId: String, starred: Boolean) {
-        if (starred)
-            favourites.add(podcastId)
-        else
+        if (starred) {
+            if (!favourites.contains(podcastId))
+                favourites.add(podcastId)
+        } else
             favourites.remove(podcastId)
-
+        Log.d("Firebase", "Decoder uploading: $favourites")
         sharedPreferencesProvider.editFavourites(favourites)
         if (userId.isNotEmpty())
             firebaseDatabaseAccessor.updateFavourites(userId, favourites)
 
         updateListeners.forEach {
-            it.onUpdated(podcastId, starred)
+            it.onFavouriteUpdated(podcastId, starred)
         }
     }
 
     override fun onFavouriteAdded(id: String) {
-        favourites.add(id)
-        updateListeners.forEach { it.onUpdated(id, true) }
+        if (!favourites.contains(id))
+            favourites.add(id)
+        updateListeners.forEach { it.onFavouriteUpdated(id, true) }
     }
 
     interface FavouriteListener {
-        fun onUpdated(id: String, starred: Boolean)
+        fun onFavouriteUpdated(id: String, starred: Boolean)
     }
 }
