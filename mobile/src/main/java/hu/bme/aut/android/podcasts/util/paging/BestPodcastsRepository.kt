@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.util
+package hu.bme.aut.android.podcasts.util.paging
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations.switchMap

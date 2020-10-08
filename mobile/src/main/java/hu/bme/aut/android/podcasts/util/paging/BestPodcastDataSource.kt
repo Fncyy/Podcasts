@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.util
+package hu.bme.aut.android.podcasts.util.paging
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource

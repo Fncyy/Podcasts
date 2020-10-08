@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.util
+package hu.bme.aut.android.podcasts.util.animation
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
 import androidx.appcompat.content.res.AppCompatResources
 import hu.bme.aut.android.podcasts.R
+import hu.bme.aut.android.podcasts.util.extensions.themeColor
+import hu.bme.aut.android.podcasts.util.extensions.themeInterpolator
 import kotlin.math.abs
 
 abstract class PodcastActionDrawable(context: Context) : Drawable() {

@@ -7,7 +7,7 @@ import hu.bme.aut.android.podcasts.domain.Region
 import hu.bme.aut.android.podcasts.domain.SearchResult
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.GenreDecoder
-import hu.bme.aut.android.podcasts.util.toInt
+import hu.bme.aut.android.podcasts.util.extensions.toInt
 import javax.inject.Inject
 import javax.inject.Singleton
 

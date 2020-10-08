@@ -5,9 +5,9 @@ import co.zsmb.rainbowcake.dagger.RainbowCakeModule
 import dagger.Component
 import hu.bme.aut.android.podcasts.data.disk.DiskModule
 import hu.bme.aut.android.podcasts.data.network.NetworkModule
-import hu.bme.aut.android.podcasts.util.BestPodcastDataSource
-import hu.bme.aut.android.podcasts.util.PodcastAdapter
 import hu.bme.aut.android.podcasts.util.UtilModule
+import hu.bme.aut.android.podcasts.util.paging.BestPodcastDataSource
+import hu.bme.aut.android.podcasts.util.paging.PodcastAdapter
 import javax.inject.Singleton
 
 @Singleton

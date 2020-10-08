@@ -1,9 +1,9 @@
-package hu.bme.aut.android.podcasts.util
+package hu.bme.aut.android.podcasts.util.paging
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import hu.bme.aut.android.podcasts.util.Status.FAILED
-import hu.bme.aut.android.podcasts.util.Status.RUNNING
+import hu.bme.aut.android.podcasts.util.paging.Status.FAILED
+import hu.bme.aut.android.podcasts.util.paging.Status.RUNNING
 import kotlinx.android.synthetic.main.item_network_state.view.*
 
 class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.util
+package hu.bme.aut.android.podcasts.util.paging
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -15,6 +15,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import hu.bme.aut.android.podcasts.PodcastsApplication
 import hu.bme.aut.android.podcasts.R
 import hu.bme.aut.android.podcasts.domain.Podcast
+import hu.bme.aut.android.podcasts.util.FavouriteDecoder
+import hu.bme.aut.android.podcasts.util.animation.PodcastSwipeActionDrawable
+import hu.bme.aut.android.podcasts.util.animation.ReboundingSwipeActionCallback
 import kotlinx.android.synthetic.main.item_podcast_home.view.*
 import javax.inject.Inject
 import kotlin.math.abs

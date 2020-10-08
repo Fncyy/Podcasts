@@ -11,8 +11,8 @@ import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import com.google.android.material.transition.MaterialElevationScale
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
-import hu.bme.aut.android.podcasts.util.PodcastAdapter
-import hu.bme.aut.android.podcasts.util.ReboundingSwipeActionCallback
+import hu.bme.aut.android.podcasts.util.animation.ReboundingSwipeActionCallback
+import hu.bme.aut.android.podcasts.util.paging.PodcastAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),

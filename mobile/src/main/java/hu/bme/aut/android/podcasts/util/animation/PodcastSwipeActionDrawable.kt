@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.util
+package hu.bme.aut.android.podcasts.util.animation
 
 import android.content.Context
 import android.graphics.Canvas
