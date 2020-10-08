@@ -23,11 +23,6 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
 
     private lateinit var podcastAdapter: PodcastAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.load()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,10 +43,12 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
             itemTouchHelper.attachToRecyclerView(this)
             adapter = podcastAdapter
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
+        viewModel.podcasts.observe(requireActivity()) {
+            podcastAdapter.submitList(it)
+        }
+        viewModel.networkState.observe(requireActivity()) {
+            podcastAdapter.setNetworkState(it)
+        }
     }
 
     override fun render(viewState: HomeViewState) {
@@ -60,7 +57,7 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
         when (viewState) {
             is HomeReady -> {
                 bestPodcastsList.visibility = View.VISIBLE
-                podcastAdapter.addElements(viewState.bestPodcasts.podcasts)
+                //podcastAdapter.addElements(viewState.bestPodcasts.podcasts)
             }
             is Loading -> {
                 homeProgress.visibility = View.VISIBLE

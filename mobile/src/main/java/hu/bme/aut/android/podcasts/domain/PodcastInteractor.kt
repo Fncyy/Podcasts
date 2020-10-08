@@ -14,7 +14,6 @@ class PodcastInteractor @Inject constructor(
 
     suspend fun getBestPodcasts(genreId: String?, page: Int?, safeMode: Int?): SearchResult {
         val result = networkDataSource.getBestPodcasts(genreId, page, safeMode)
-        diskDataSource.removeAllBestPodcasts()
         diskDataSource.insertAllBestPodcasts(result.podcasts)
         return result
     }

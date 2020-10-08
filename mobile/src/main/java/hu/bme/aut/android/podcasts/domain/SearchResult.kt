@@ -22,5 +22,5 @@ data class Podcast(
     val totalEpisodes: Int,
     val type: String,
     val website: String,
-    val starred: Boolean
+    var starred: Boolean
 )

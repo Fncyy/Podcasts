@@ -22,3 +22,13 @@ fun SearchResult.toBestPodcasts() = BestPodcasts(
         )
     }
 )
+
+fun hu.bme.aut.android.podcasts.domain.Podcast.toPodcast() = Podcast(
+    explicitContent = explicitContent,
+    genres = genres,
+    id = id,
+    publisher = publisher,
+    thumbnail = thumbnail,
+    title = title,
+    starred = starred
+)
