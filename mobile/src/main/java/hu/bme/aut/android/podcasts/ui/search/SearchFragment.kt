@@ -3,12 +3,16 @@ package hu.bme.aut.android.podcasts.ui.search
 import android.os.Bundle
 import android.view.View
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
-import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
+import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.android.podcasts.R
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SearchFragment : RainbowCakeFragment<SearchViewState, SearchViewModel>() {
 
-    override fun provideViewModel() = getViewModelFromFactory()
+    @Inject
+    lateinit var injectedViewModel: SearchViewModel
+    override fun provideViewModel() = injectedViewModel
     override fun getViewResource() = R.layout.fragment_search
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

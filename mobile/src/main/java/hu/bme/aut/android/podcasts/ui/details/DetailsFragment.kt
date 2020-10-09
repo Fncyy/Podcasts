@@ -8,19 +8,23 @@ import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.navigation.fragment.navArgs
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
-import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.transition.MaterialContainerTransform
+import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
 import hu.bme.aut.android.podcasts.ui.details.DetailsPresenter.Podcast
 import hu.bme.aut.android.podcasts.util.animation.PodcastStarActionDrawable
 import kotlinx.android.synthetic.main.fragment_details.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel>() {
 
-    override fun provideViewModel() = getViewModelFromFactory()
+    @Inject
+    lateinit var injectedViewModel: DetailsViewModel
+    override fun provideViewModel() = injectedViewModel
     override fun getViewResource() = R.layout.fragment_details
 
     private val args: DetailsFragmentArgs by navArgs()

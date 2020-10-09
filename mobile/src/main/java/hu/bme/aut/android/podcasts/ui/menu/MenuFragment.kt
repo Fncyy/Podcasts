@@ -7,8 +7,8 @@ import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
 import co.zsmb.rainbowcake.base.OneShotEvent
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
-import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.extensions.exhaustive
+import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
 import hu.bme.aut.android.podcasts.domain.Language
@@ -18,10 +18,14 @@ import hu.bme.aut.android.podcasts.ui.login.LoginViewModel.Companion.STATE_LOGIN
 import hu.bme.aut.android.podcasts.ui.login.LoginViewModel.Companion.STATE_REGISTER
 import hu.bme.aut.android.podcasts.ui.menu.MenuViewModel.*
 import kotlinx.android.synthetic.main.fragment_menu.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MenuFragment : RainbowCakeFragment<MenuViewState, MenuViewModel>() {
 
-    override fun provideViewModel() = getViewModelFromFactory()
+    @Inject
+    lateinit var injectedViewModel: MenuViewModel
+    override fun provideViewModel() = injectedViewModel
     override fun getViewResource() = R.layout.fragment_menu
 
     private val regions: MutableMap<String, String> = mutableMapOf()

@@ -12,30 +12,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import hu.bme.aut.android.podcasts.PodcastsApplication
 import hu.bme.aut.android.podcasts.R
 import hu.bme.aut.android.podcasts.domain.Podcast
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.animation.PodcastSwipeActionDrawable
 import hu.bme.aut.android.podcasts.util.animation.ReboundingSwipeActionCallback
 import kotlinx.android.synthetic.main.item_podcast_home.view.*
-import javax.inject.Inject
 import kotlin.math.abs
 
-class PodcastAdapter(private val context: Context) :
-    PagedListAdapter<Podcast, RecyclerView.ViewHolder>(POST_COMPARATOR),
+class PodcastAdapter(
+    private val context: Context,
+    favouriteDecoder: FavouriteDecoder
+) : PagedListAdapter<Podcast, RecyclerView.ViewHolder>(POST_COMPARATOR),
     FavouriteDecoder.FavouriteListener {
 
-    @Inject
-    lateinit var favouriteDecoder: FavouriteDecoder
-
-    @Inject
-    lateinit var bestPodcastsRepository: BestPodcastsRepository
     var podcastUpdateListener: PodcastUpdateListener? = null
     private var networkState: NetworkState? = null
 
     init {
-        (context.applicationContext as PodcastsApplication).injector.inject(this)
         favouriteDecoder.subscribe(this)
     }
 

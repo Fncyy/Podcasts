@@ -7,18 +7,26 @@ import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
-import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import com.google.android.material.transition.MaterialElevationScale
+import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
+import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.animation.ReboundingSwipeActionCallback
 import hu.bme.aut.android.podcasts.util.paging.PodcastAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
     PodcastAdapter.PodcastUpdateListener {
 
-    override fun provideViewModel() = getViewModelFromFactory()
+    @Inject
+    lateinit var favouriteDecoder: FavouriteDecoder
+
+    @Inject
+    lateinit var injectedViewModel: HomeViewModel
+    override fun provideViewModel() = injectedViewModel
     override fun getViewResource() = R.layout.fragment_home
 
     private lateinit var podcastAdapter: PodcastAdapter
@@ -36,7 +44,7 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
     }
 
     private fun setupRecyclerView() {
-        podcastAdapter = PodcastAdapter(requireContext())
+        podcastAdapter = PodcastAdapter(requireContext(), favouriteDecoder)
         podcastAdapter.podcastUpdateListener = this
         bestPodcastsList.apply {
             val itemTouchHelper = ItemTouchHelper(ReboundingSwipeActionCallback())

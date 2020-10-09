@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'dagger.hilt.android.plugin'
 
 def apiKeyPropertiesFile = rootProject.file("apikey.properties")
 def apiKeyProperties = new Properties()
@@ -70,6 +71,10 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$rootProject.hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hilt_version"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigation_version"

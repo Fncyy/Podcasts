@@ -2,11 +2,12 @@ package hu.bme.aut.android.podcasts.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SharedPreferencesProvider @Inject constructor(val context: Context) {
+class SharedPreferencesProvider @Inject constructor(@ApplicationContext val context: Context) {
 
     companion object {
         private const val PREFERENCE_KEY = "preferences"

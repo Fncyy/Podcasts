@@ -6,19 +6,23 @@ import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
-import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.extensions.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.UserProfileChangeRequest
+import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
 import kotlinx.android.synthetic.main.fragment_login.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>(),
     LoginViewModel.MigrationListener {
 
-    override fun provideViewModel() = getViewModelFromFactory()
+    @Inject
+    lateinit var injectedViewModel: LoginViewModel
+    override fun provideViewModel() = injectedViewModel
     override fun getViewResource() = R.layout.fragment_login
 
     private val args: LoginFragmentArgs by navArgs()

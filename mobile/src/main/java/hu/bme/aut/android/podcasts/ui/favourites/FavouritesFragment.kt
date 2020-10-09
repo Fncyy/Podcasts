@@ -3,12 +3,16 @@ package hu.bme.aut.android.podcasts.ui.favourites
 import android.os.Bundle
 import android.view.View
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
-import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
+import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.android.podcasts.R
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class FavouritesFragment : RainbowCakeFragment<FavouritesViewState, FavouritesViewModel>() {
 
-    override fun provideViewModel() = getViewModelFromFactory()
+    @Inject
+    lateinit var injectedViewModel: FavouritesViewModel
+    override fun provideViewModel() = injectedViewModel
     override fun getViewResource() = R.layout.fragment_favourites
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
