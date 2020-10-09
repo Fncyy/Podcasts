@@ -20,7 +20,7 @@ class PodcastInteractor @Inject constructor(
 
     // TODO search with api then save with room
 
-    suspend fun getBestPodcastById(id: String): Podcast? {
+    suspend fun getBestPodcastById(id: String): FullPodcast? {
         return diskDataSource.getPodcastById(id)
     }
 

@@ -1,5 +1,6 @@
 package hu.bme.aut.android.podcasts.ui.home
 
+import hu.bme.aut.android.podcasts.domain.Podcast
 import hu.bme.aut.android.podcasts.domain.PodcastInteractor
 import javax.inject.Inject
 
@@ -20,15 +21,5 @@ class HomePresenter @Inject constructor(
         val name: String,
         val nextPageNumber: Int,
         val podcasts: List<Podcast>
-    )
-
-    data class Podcast(
-        val explicitContent: Boolean,
-        val genres: String,
-        val id: String,
-        val publisher: String,
-        val thumbnail: String,
-        val title: String,
-        var starred: Boolean
     )
 }

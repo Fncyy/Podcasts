@@ -1,9 +1,9 @@
 package hu.bme.aut.android.podcasts.data.network
 
-import hu.bme.aut.android.podcasts.domain.Podcast
+import hu.bme.aut.android.podcasts.domain.FullPodcast
 import hu.bme.aut.android.podcasts.ui.details.DetailsPresenter
 
-fun Podcast.toPodcast() = DetailsPresenter.Podcast(
+fun FullPodcast.toPodcast() = DetailsPresenter.Podcast(
     country = country,
     description = description,
     explicitContent = explicitContent,

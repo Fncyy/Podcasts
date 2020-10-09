@@ -2,8 +2,8 @@ package hu.bme.aut.android.podcasts.util.paging
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
+import hu.bme.aut.android.podcasts.domain.Podcast
 import hu.bme.aut.android.podcasts.domain.PodcastInteractor
-import hu.bme.aut.android.podcasts.ui.home.HomePresenter.Podcast
 import hu.bme.aut.android.podcasts.ui.home.toBestPodcasts
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

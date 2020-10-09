@@ -2,9 +2,9 @@ package hu.bme.aut.android.podcasts.data.disk
 
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomBestPodcastItem
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomSearchPodcastItem
-import hu.bme.aut.android.podcasts.domain.Podcast
+import hu.bme.aut.android.podcasts.domain.FullPodcast
 
-fun RoomBestPodcastItem.toPodcast() = Podcast(
+fun RoomBestPodcastItem.toPodcast() = FullPodcast(
     country = country,
     description = description,
     explicitContent = explicitContent,
@@ -20,7 +20,7 @@ fun RoomBestPodcastItem.toPodcast() = Podcast(
     starred = starred
 )
 
-fun RoomSearchPodcastItem.toPodcast() = Podcast(
+fun RoomSearchPodcastItem.toPodcast() = FullPodcast(
     country = country,
     description = description,
     explicitContent = explicitContent,
@@ -36,7 +36,7 @@ fun RoomSearchPodcastItem.toPodcast() = Podcast(
     starred = starred
 )
 
-fun Podcast.toRoomBestPodcastItem() = RoomBestPodcastItem(
+fun FullPodcast.toRoomBestPodcastItem() = RoomBestPodcastItem(
     id = id,
     country = country,
     description = description,
@@ -52,7 +52,7 @@ fun Podcast.toRoomBestPodcastItem() = RoomBestPodcastItem(
     starred = starred
 )
 
-fun Podcast.toRoomSearchPodcastItem() = RoomSearchPodcastItem(
+fun FullPodcast.toRoomSearchPodcastItem() = RoomSearchPodcastItem(
     id = id,
     country = country,
     description = description,

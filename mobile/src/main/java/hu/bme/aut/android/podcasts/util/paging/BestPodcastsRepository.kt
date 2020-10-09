@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations.switchMap
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
-import hu.bme.aut.android.podcasts.ui.home.HomePresenter.Podcast
+import hu.bme.aut.android.podcasts.domain.Podcast
 import javax.inject.Inject
 
 class BestPodcastsRepository @Inject constructor(

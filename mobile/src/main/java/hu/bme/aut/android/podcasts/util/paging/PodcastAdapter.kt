@@ -14,8 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import hu.bme.aut.android.podcasts.PodcastsApplication
 import hu.bme.aut.android.podcasts.R
-import hu.bme.aut.android.podcasts.ui.home.HomePresenter
-import hu.bme.aut.android.podcasts.ui.home.HomePresenter.Podcast
+import hu.bme.aut.android.podcasts.domain.Podcast
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.animation.PodcastSwipeActionDrawable
 import hu.bme.aut.android.podcasts.util.animation.ReboundingSwipeActionCallback
@@ -102,6 +101,7 @@ class PodcastAdapter(private val context: Context) :
     inner class PodcastViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView),
         ReboundingSwipeActionCallback.ReboundableViewHolder {
+
         private val cardView = itemView.item_card_view
         private val frame = itemView.item_root
         private val title = itemView.titleText

@@ -6,10 +6,10 @@ data class SearchResult(
     val id: Int,
     val name: String,
     val nextPageNumber: Int,
-    val podcasts: List<Podcast>
+    val podcasts: List<FullPodcast>
 )
 
-data class Podcast(
+data class FullPodcast(
     val country: String,
     val description: String,
     val explicitContent: Boolean,

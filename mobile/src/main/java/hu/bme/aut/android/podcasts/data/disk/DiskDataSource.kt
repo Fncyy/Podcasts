@@ -2,8 +2,8 @@ package hu.bme.aut.android.podcasts.data.disk
 
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomLanguageItem
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomRegionItem
+import hu.bme.aut.android.podcasts.domain.FullPodcast
 import hu.bme.aut.android.podcasts.domain.Language
-import hu.bme.aut.android.podcasts.domain.Podcast
 import hu.bme.aut.android.podcasts.domain.Region
 import hu.bme.aut.android.podcasts.domain.UserData
 import hu.bme.aut.android.podcasts.util.SharedPreferencesProvider
@@ -32,17 +32,17 @@ class DiskDataSource @Inject constructor(
         regionDao.insertAllRegions(userData.regions!!.map { RoomRegionItem(it.key, it.name) })
     }
 
-    suspend fun getPodcastById(id: String): Podcast? {
+    suspend fun getPodcastById(id: String): FullPodcast? {
         return bestPodcastDao.getPodcastById(id)?.toPodcast()
             ?: searchPodcastDao.getPodcastById(id)?.toPodcast()
     }
 
-    suspend fun insertAllBestPodcasts(podcasts: List<Podcast>) {
-        bestPodcastDao.insertAllPodcasts(podcasts.map(Podcast::toRoomBestPodcastItem))
+    suspend fun insertAllBestPodcasts(podcasts: List<FullPodcast>) {
+        bestPodcastDao.insertAllPodcasts(podcasts.map(FullPodcast::toRoomBestPodcastItem))
     }
 
-    suspend fun insertAllSearchPodcasts(podcasts: List<Podcast>) {
-        searchPodcastDao.insertAllPodcasts(podcasts.map(Podcast::toRoomSearchPodcastItem))
+    suspend fun insertAllSearchPodcasts(podcasts: List<FullPodcast>) {
+        searchPodcastDao.insertAllPodcasts(podcasts.map(FullPodcast::toRoomSearchPodcastItem))
     }
 
     suspend fun removeAllBestPodcasts() {

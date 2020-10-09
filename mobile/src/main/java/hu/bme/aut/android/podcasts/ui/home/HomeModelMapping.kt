@@ -1,8 +1,8 @@
 package hu.bme.aut.android.podcasts.ui.home
 
+import hu.bme.aut.android.podcasts.domain.Podcast
 import hu.bme.aut.android.podcasts.domain.SearchResult
 import hu.bme.aut.android.podcasts.ui.home.HomePresenter.BestPodcasts
-import hu.bme.aut.android.podcasts.ui.home.HomePresenter.Podcast
 
 
 fun SearchResult.toBestPodcasts() = BestPodcasts(
@@ -23,7 +23,7 @@ fun SearchResult.toBestPodcasts() = BestPodcasts(
     }
 )
 
-fun hu.bme.aut.android.podcasts.domain.Podcast.toPodcast() = Podcast(
+fun hu.bme.aut.android.podcasts.domain.FullPodcast.toPodcast() = Podcast(
     explicitContent = explicitContent,
     genres = genres,
     id = id,

@@ -3,8 +3,8 @@ package hu.bme.aut.android.podcasts.data.network
 import dagger.Lazy
 import hu.bme.aut.android.podcasts.data.network.model.BestPodcastsResponse
 import hu.bme.aut.android.podcasts.data.network.model.GenresResponse
+import hu.bme.aut.android.podcasts.domain.FullPodcast
 import hu.bme.aut.android.podcasts.domain.GenresResult
-import hu.bme.aut.android.podcasts.domain.Podcast
 import hu.bme.aut.android.podcasts.domain.SearchResult
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.GenreDecoder
@@ -18,7 +18,7 @@ suspend fun BestPodcastsResponse.toSearchResult(
     name = name ?: "",
     nextPageNumber = next_page_number ?: 0,
     podcasts = podcasts.map { podcast ->
-        Podcast(
+        FullPodcast(
             country = podcast.country ?: "",
             description = podcast.description ?: "",
             explicitContent = podcast.explicit_content ?: false,
