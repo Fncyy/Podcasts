@@ -35,6 +35,7 @@ class BestPodcastDataSource(
 
         CoroutineScope(Dispatchers.IO).async {
             try {
+                podcastInteractor.removeAllBestPodcasts()
                 val result = podcastInteractor.getBestPodcasts(null, null, null).toBestPodcasts()
                 val next = if (result.hasNext) result.nextPageNumber else null
                 networkState.postValue(NetworkState.LOADED)

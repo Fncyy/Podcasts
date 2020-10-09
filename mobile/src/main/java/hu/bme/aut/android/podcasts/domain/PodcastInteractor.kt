@@ -18,6 +18,10 @@ class PodcastInteractor @Inject constructor(
         return result
     }
 
+    suspend fun removeAllBestPodcasts() {
+        diskDataSource.removeAllBestPodcasts()
+    }
+
     // TODO search with api then save with room
 
     suspend fun getBestPodcastById(id: String): FullPodcast? {
