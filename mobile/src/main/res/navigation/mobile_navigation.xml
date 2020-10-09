@@ -48,7 +48,7 @@
         tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_navigation_menu_to_navigation_login_out_register"
-            app:destination="@id/navigation_login_out_register"></action>
+            app:destination="@id/navigation_login_out_register" />
     </fragment>
 
     <fragment

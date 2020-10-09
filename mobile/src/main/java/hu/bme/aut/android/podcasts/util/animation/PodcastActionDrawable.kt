@@ -23,7 +23,7 @@ abstract class PodcastActionDrawable(context: Context) : Drawable() {
     protected open var cx = 0F
     protected open var cr = 0F
 
-    protected open val icon = AppCompatResources.getDrawable(
+    protected open val icon: Drawable = AppCompatResources.getDrawable(
         context,
         R.drawable.ic_twotone_star_on_background
     )!!

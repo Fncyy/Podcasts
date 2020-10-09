@@ -1,6 +1,5 @@
 package hu.bme.aut.android.podcasts.ui.menu
 
-import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.core.view.children
@@ -29,16 +28,6 @@ class MenuFragment : RainbowCakeFragment<MenuViewState, MenuViewModel>() {
     override fun getViewResource() = R.layout.fragment_menu
 
     private val regions: MutableMap<String, String> = mutableMapOf()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // TODO Setup views
-    }
 
     override fun onStart() {
         super.onStart()

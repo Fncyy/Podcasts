@@ -1,6 +1,5 @@
 package hu.bme.aut.android.podcasts.ui.login
 
-import android.os.Bundle
 import android.view.View
 import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
@@ -26,12 +25,6 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>(),
     override fun getViewResource() = R.layout.fragment_login
 
     private val args: LoginFragmentArgs by navArgs()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // TODO Setup views
-    }
 
     override fun onStart() {
         super.onStart()

@@ -45,6 +45,7 @@
                 android:src="@drawable/ic_baseline_explicit_24"
                 app:layout_constraintBottom_toBottomOf="@id/publisherText"
                 app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="@string/details_explicit_content_desc"
                 app:layout_constraintTop_toTopOf="@id/publisherText" />
 
             <TextView
@@ -85,6 +86,7 @@
                 android:layout_marginEnd="@dimen/grid_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/details_thumbnail_content_desc"
                 tools:src="@drawable/ic_launcher_background" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

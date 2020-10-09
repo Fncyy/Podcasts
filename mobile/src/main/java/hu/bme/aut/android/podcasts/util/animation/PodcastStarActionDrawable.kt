@@ -32,7 +32,7 @@ class PodcastStarActionDrawable(context: Context) : PodcastActionDrawable(contex
         )
 
         // Map our progress range from 0-1 to 0-PI
-        val range = lerp(
+        val range = linearlyInterpolate(
             0F,
             Math.PI.toFloat(),
             progress

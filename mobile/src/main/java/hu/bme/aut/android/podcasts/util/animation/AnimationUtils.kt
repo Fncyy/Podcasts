@@ -8,7 +8,7 @@ import kotlin.math.roundToInt
 /**
  * Linearly interpolate between two values
  */
-fun lerp(
+fun linearlyInterpolate(
     startValue: Float,
     endValue: Float,
     @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true) fraction: Float
@@ -19,7 +19,7 @@ fun lerp(
 /**
  * Linearly interpolate between two values
  */
-fun lerp(
+fun linearlyInterpolate(
     startValue: Int,
     endValue: Int,
     @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true) fraction: Float
@@ -30,7 +30,7 @@ fun lerp(
 /**
  * Linearly interpolate between two values when the fraction is in a given range.
  */
-fun lerp(
+fun linearlyInterpolate(
     startValue: Float,
     endValue: Float,
     @FloatRange(
@@ -45,13 +45,17 @@ fun lerp(
     if (fraction < startFraction) return startValue
     if (fraction > endFraction) return endValue
 
-    return lerp(startValue, endValue, (fraction - startFraction) / (endFraction - startFraction))
+    return linearlyInterpolate(
+        startValue,
+        endValue,
+        (fraction - startFraction) / (endFraction - startFraction)
+    )
 }
 
 /**
  * Linearly interpolate between two values when the fraction is in a given range.
  */
-fun lerp(
+fun linearlyInterpolate(
     startValue: Int,
     endValue: Int,
     @FloatRange(
@@ -66,7 +70,11 @@ fun lerp(
     if (fraction < startFraction) return startValue
     if (fraction > endFraction) return endValue
 
-    return lerp(startValue, endValue, (fraction - startFraction) / (endFraction - startFraction))
+    return linearlyInterpolate(
+        startValue,
+        endValue,
+        (fraction - startFraction) / (endFraction - startFraction)
+    )
 }
 
 /**
@@ -100,7 +108,7 @@ fun lerpArgb(
  * outputMin to outputMax scale. This function is able to handle ranges which span negative and
  * positive numbers.
  *
- * This differs from [lerp] as the input values are not required to be between 0 and 1.
+ * This differs from [linearlyInterpolate] as the input values are not required to be between 0 and 1.
  */
 fun Float.normalize(
     inputMin: Float,

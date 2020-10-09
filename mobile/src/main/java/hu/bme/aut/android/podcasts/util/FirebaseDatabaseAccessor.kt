@@ -24,7 +24,7 @@ class FirebaseDatabaseAccessor {
     private var userId = ""
     private var favouritesListeners = mutableListOf<ChildEventListener>()
 
-    suspend fun getUserData(
+    fun getUserData(
         id: String,
         displayName: String,
         listener: FirebaseDatabaseInsertionListener
@@ -40,13 +40,16 @@ class FirebaseDatabaseAccessor {
         )
     }
 
-    suspend fun updateUserData(id: String, data: UserData) {
+    fun updateUserData(id: String, data: UserData) {
         updateExplicitContent(id, data.explicitContent!!)
         updateRegions(id, data.regions!!)
         updateLanguages(id, data.languages!!)
     }
 
-    fun getExplicitContent(id: String, listener: FirebaseDatabaseInsertionListener): Boolean {
+    private fun getExplicitContent(
+        id: String,
+        listener: FirebaseDatabaseInsertionListener
+    ): Boolean {
         if (!listeners.contains(listener))
             listeners.add(listener)
         instance.reference.child(id).child(EXPLICIT)
@@ -129,7 +132,7 @@ class FirebaseDatabaseAccessor {
         return mutableListOf()
     }
 
-    fun updateRegions(id: String, list: List<Region>) {
+    private fun updateRegions(id: String, list: List<Region>) {
         instance.reference.child(id).child(REGIONS).setValue(list)
     }
 
@@ -155,7 +158,7 @@ class FirebaseDatabaseAccessor {
         return mutableListOf()
     }
 
-    fun updateLanguages(id: String, list: List<Language>) {
+    private fun updateLanguages(id: String, list: List<Language>) {
         instance.reference.child(id).child(LANGUAGES).setValue(list)
     }
 

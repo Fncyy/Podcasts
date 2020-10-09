@@ -77,8 +77,12 @@ class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel>(
         titleText.text = podcast.title
         explicitImage.visibility = if (podcast.explicitContent) View.VISIBLE else View.GONE
         publisherText.text = podcast.publisher
-        miscText.text =
-            "${podcast.country}, ${podcast.totalEpisodes} episodes, ${podcast.type} type"
+        miscText.text = getString(
+            R.string.details_misc_text,
+            podcast.country,
+            podcast.totalEpisodes,
+            podcast.type
+        )
         categoriesText.text = podcast.genres
         descriptionText.text = Html.fromHtml(podcast.description)
 

@@ -44,7 +44,7 @@ class UserInteractor @Inject constructor(
             firebaseDatabaseAccessor.getFavourites(id, listener)
     }
 
-    suspend fun updateExplicitContent(id: String, explicit: Boolean) {
+    fun updateExplicitContent(id: String, explicit: Boolean) {
         sharedPreferencesProvider.editExplicitContent(explicit)
         if (id.isNotEmpty()) {
             firebaseDatabaseAccessor.updateExplicitContent(id, explicit)
