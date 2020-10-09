@@ -14,7 +14,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import hu.bme.aut.android.podcasts.PodcastsApplication
 import hu.bme.aut.android.podcasts.R
-import hu.bme.aut.android.podcasts.domain.Podcast
+import hu.bme.aut.android.podcasts.ui.home.HomePresenter
+import hu.bme.aut.android.podcasts.ui.home.HomePresenter.Podcast
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.animation.PodcastSwipeActionDrawable
 import hu.bme.aut.android.podcasts.util.animation.ReboundingSwipeActionCallback
@@ -33,8 +34,6 @@ class PodcastAdapter(private val context: Context) :
     lateinit var bestPodcastsRepository: BestPodcastsRepository
     var podcastUpdateListener: PodcastUpdateListener? = null
     private var networkState: NetworkState? = null
-
-    private val podcasts = mutableListOf<Podcast>()
 
     init {
         (context.applicationContext as PodcastsApplication).injector.inject(this)

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.switchMap
 import co.zsmb.rainbowcake.base.RainbowCakeViewModel
 import com.google.firebase.auth.FirebaseUser
-import hu.bme.aut.android.podcasts.domain.Podcast
+import hu.bme.aut.android.podcasts.ui.home.HomePresenter.Podcast
 import hu.bme.aut.android.podcasts.util.paging.BestPodcastsRepository
 import hu.bme.aut.android.podcasts.util.paging.Listing
 import javax.inject.Inject
