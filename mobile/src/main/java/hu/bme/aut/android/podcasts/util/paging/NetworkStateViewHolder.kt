@@ -6,14 +6,15 @@ import hu.bme.aut.android.podcasts.util.paging.Status.FAILED
 import hu.bme.aut.android.podcasts.util.paging.Status.RUNNING
 import kotlinx.android.synthetic.main.item_network_state.view.*
 
-class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class NetworkStateItemViewHolder(view: View, private val retryCallback: () -> Unit) :
+    RecyclerView.ViewHolder(view) {
     private val progressBar = view.progress
     private val retry = view.retryButton
     private val errorMsg = view.errorText
 
     init {
         retry.setOnClickListener {
-
+            retryCallback()
         }
     }
 
@@ -25,12 +26,11 @@ class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     companion object {
-
         fun toVisibility(constraint: Boolean): Int {
             return if (constraint) {
                 View.VISIBLE
             } else {
-                View.GONE
+                View.INVISIBLE
             }
         }
     }

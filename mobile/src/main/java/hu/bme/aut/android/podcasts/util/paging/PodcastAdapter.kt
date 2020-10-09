@@ -22,7 +22,8 @@ import kotlin.math.abs
 
 class PodcastAdapter(
     private val context: Context,
-    favouriteDecoder: FavouriteDecoder
+    favouriteDecoder: FavouriteDecoder,
+    private val retryCallback: () -> Unit
 ) : PagedListAdapter<Podcast, RecyclerView.ViewHolder>(POST_COMPARATOR),
     FavouriteDecoder.FavouriteListener {
 
@@ -45,7 +46,7 @@ class PodcastAdapter(
                 val view =
                     LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_network_state, parent, false)
-                NetworkStateItemViewHolder(view)
+                NetworkStateItemViewHolder(view, retryCallback)
             }
             else -> throw IllegalArgumentException("unknown view type $viewType")
         }

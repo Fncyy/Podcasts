@@ -28,4 +28,8 @@ class HomeViewModel @Inject constructor(
         homePresenter.updateStarred(uid, id, starred)
     }
 
+    fun retry() {
+        val listing = podcastsList.value
+        listing?.retry?.invoke()
+    }
 }

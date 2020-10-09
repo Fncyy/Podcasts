@@ -17,12 +17,14 @@ class BestPodcastsRepository @Inject constructor(
             pagedList = livePagedList,
             networkState = switchMap(bestPodcastsDataSourceFactory.sourceLiveData) {
                 it.networkState
-            }
+            },
+            retry = { bestPodcastsDataSourceFactory.sourceLiveData.value?.retryAllFailed() }
         )
     }
 }
 
 data class Listing<T>(
     val pagedList: LiveData<PagedList<T>>,
-    val networkState: LiveData<NetworkState>
+    val networkState: LiveData<NetworkState>,
+    val retry: () -> Unit
 )

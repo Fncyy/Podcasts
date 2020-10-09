@@ -9,26 +9,41 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
-class BestPodcastDataSource(private val podcastInteractor: PodcastInteractor) :
+class BestPodcastDataSource(
+    private val podcastInteractor: PodcastInteractor
+) :
     PageKeyedDataSource<Int, Podcast>() {
 
+    private var retry: (() -> Any)? = null
     val networkState = MutableLiveData<NetworkState>()
 
-    val initialLoad = MutableLiveData<NetworkState>()
+    fun retryAllFailed() {
+        val prevRetry = retry
+        retry = null
+        prevRetry?.let {
+            CoroutineScope(Dispatchers.IO).async {
+                it.invoke()
+            }
+        }
+    }
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Podcast>
     ) {
         networkState.postValue(NetworkState.LOADING)
-        initialLoad.postValue(NetworkState.LOADING)
 
         CoroutineScope(Dispatchers.IO).async {
-            val result = podcastInteractor.getBestPodcasts(null, null, null).toBestPodcasts()
-            val next = if (result.hasNext) result.nextPageNumber else null
-            networkState.postValue(NetworkState.LOADED)
-            initialLoad.postValue(NetworkState.LOADED)
-            callback.onResult(result.podcasts, null, next)
+            try {
+                val result = podcastInteractor.getBestPodcasts(null, null, null).toBestPodcasts()
+                val next = if (result.hasNext) result.nextPageNumber else null
+                networkState.postValue(NetworkState.LOADED)
+                callback.onResult(result.podcasts, null, next)
+            } catch (e: Exception) {
+                retry = { loadInitial(params, callback) }
+                val error = NetworkState.error("The server could not be reached.")
+                networkState.postValue(error)
+            }
         }
     }
 
@@ -40,10 +55,16 @@ class BestPodcastDataSource(private val podcastInteractor: PodcastInteractor) :
         networkState.postValue(NetworkState.LOADING)
 
         CoroutineScope(Dispatchers.IO).async {
-            val result = podcastInteractor.getBestPodcasts(null, params.key, null).toBestPodcasts()
-            val next = if (result.hasNext) result.nextPageNumber else null
-            networkState.postValue(NetworkState.LOADED)
-            callback.onResult(result.podcasts, next)
+            try {
+                val result =
+                    podcastInteractor.getBestPodcasts(null, params.key, null).toBestPodcasts()
+                val next = if (result.hasNext) result.nextPageNumber else null
+                networkState.postValue(NetworkState.LOADED)
+                callback.onResult(result.podcasts, next)
+            } catch (e: Exception) {
+                retry = { loadAfter(params, callback) }
+                networkState.postValue(NetworkState.error("The server could not be reached."))
+            }
         }
     }
 }

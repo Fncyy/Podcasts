@@ -44,7 +44,9 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
     }
 
     private fun setupRecyclerView() {
-        podcastAdapter = PodcastAdapter(requireContext(), favouriteDecoder)
+        podcastAdapter = PodcastAdapter(requireContext(), favouriteDecoder) {
+            viewModel.retry()
+        }
         podcastAdapter.podcastUpdateListener = this
         bestPodcastsList.apply {
             val itemTouchHelper = ItemTouchHelper(ReboundingSwipeActionCallback())
