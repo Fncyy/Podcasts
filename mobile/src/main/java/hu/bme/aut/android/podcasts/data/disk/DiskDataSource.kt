@@ -13,9 +13,10 @@ import javax.inject.Singleton
 @Singleton
 class DiskDataSource @Inject constructor(
     private val bestPodcastDao: BestPodcastDao,
-    private val searchPodcastDao: SearchPodcastDao,
-    private val regionDao: RegionDao,
+    private val favouritePodcastDao: FavouritePodcastDao,
     private val languageDao: LanguageDao,
+    private val regionDao: RegionDao,
+    private val searchPodcastDao: SearchPodcastDao,
     private val sharedPreferencesProvider: SharedPreferencesProvider
 ) {
 
@@ -35,6 +36,7 @@ class DiskDataSource @Inject constructor(
     suspend fun getPodcastById(id: String): FullPodcast? {
         return bestPodcastDao.getPodcastById(id)?.toPodcast()
             ?: searchPodcastDao.getPodcastById(id)?.toPodcast()
+            ?: favouritePodcastDao.getPodcastById(id)?.toPodcast()
     }
 
     suspend fun insertAllBestPodcasts(podcasts: List<FullPodcast>) {
@@ -45,12 +47,20 @@ class DiskDataSource @Inject constructor(
         searchPodcastDao.insertAllPodcasts(podcasts.map(FullPodcast::toRoomSearchPodcastItem))
     }
 
+    suspend fun insertAllFavouritePodcasts(podcasts: List<FullPodcast>) {
+        favouritePodcastDao.insertAllPodcasts(podcasts.map(FullPodcast::toRoomFavouritePodcastItem))
+    }
+
     suspend fun removeAllBestPodcasts() {
         bestPodcastDao.removeAllPodcasts()
     }
 
     suspend fun removeAllSearchPodcasts() {
         searchPodcastDao.removeAllPodcasts()
+    }
+
+    suspend fun removeAllFavouritePodcasts() {
+        favouritePodcastDao.removeAllPodcasts()
     }
 
     suspend fun updateFavourite(id: String, starred: Boolean) {

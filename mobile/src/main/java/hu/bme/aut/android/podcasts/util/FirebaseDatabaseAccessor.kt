@@ -1,6 +1,5 @@
 package hu.bme.aut.android.podcasts.util
 
-import android.util.Log
 import com.google.firebase.database.*
 import hu.bme.aut.android.podcasts.domain.Language
 import hu.bme.aut.android.podcasts.domain.Region
@@ -72,18 +71,13 @@ class FirebaseDatabaseAccessor {
     }
 
     fun getFavourites(id: String, listener: FirebaseDatabaseInsertionListener): List<String> {
-        if (!listeners.contains(listener)) {
+        if (!listeners.contains(listener))
             listeners.add(listener)
-            Log.d("Firebase", "Adding listener: $listener")
-        } else {
-            Log.d("Firebase", "Not added listener: $listener")
-        }
         if (id != userId) {
             val reference = instance.reference.child(id).child(FAVOURITES)
             val childEventListener = object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     val podcastId = snapshot.getValue(String::class.java)
-                    Log.d("Firebase", "Get: $podcastId")
                     if (podcastId != null)
                         listeners.forEach { it.onFavouriteAdded(podcastId) }
                 }
@@ -107,7 +101,6 @@ class FirebaseDatabaseAccessor {
     }
 
     fun updateFavourites(id: String, list: List<String>) {
-        Log.d("Firebase", "Put: $list")
         instance.reference.child(id).child(FAVOURITES).run {
             setValue(list)
         }

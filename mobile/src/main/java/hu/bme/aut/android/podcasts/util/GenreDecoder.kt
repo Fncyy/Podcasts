@@ -21,8 +21,6 @@ class GenreDecoder @Inject constructor(
     suspend fun decodeKeys(keys: List<Int>): String {
         if (!initialized) initialize()
         // Removes the genre 'Podcast' which has the Id of '67' since they all are
-        return keys.minus(67).map {
-            genres[it]
-        }.toList().joinToString()
+        return keys.minusElement(67).map { genres[it] }.joinToString()
     }
 }

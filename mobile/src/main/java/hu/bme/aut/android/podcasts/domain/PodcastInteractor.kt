@@ -18,11 +18,19 @@ class PodcastInteractor @Inject constructor(
         return result
     }
 
+    suspend fun getFavouritePodcasts(): List<Podcast> {
+        diskDataSource.removeAllFavouritePodcasts()
+        return mutableListOf<FullPodcast>().also { podcasts ->
+            favouriteDecoder.get().getFavourites().forEach { id ->
+                podcasts.add(networkDataSource.getPodcast(id))
+            }
+            diskDataSource.insertAllFavouritePodcasts(podcasts)
+        }.map(FullPodcast::toPodcast)
+    }
+
     suspend fun removeAllBestPodcasts() {
         diskDataSource.removeAllBestPodcasts()
     }
-
-    // TODO search with api then save with room
 
     suspend fun getBestPodcastById(id: String): FullPodcast? {
         return diskDataSource.getPodcastById(id)
@@ -34,7 +42,6 @@ class PodcastInteractor @Inject constructor(
 
     suspend fun updateFavourites(uid: String, id: String, starred: Boolean) {
         favouriteDecoder.get().updateStarred(uid, id, starred)
-        // TODO save to firebase
         diskDataSource.updateFavourite(id, starred)
     }
 

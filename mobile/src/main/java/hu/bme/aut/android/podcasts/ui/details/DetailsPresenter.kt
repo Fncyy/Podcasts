@@ -1,6 +1,5 @@
 package hu.bme.aut.android.podcasts.ui.details
 
-import hu.bme.aut.android.podcasts.data.network.toPodcast
 import hu.bme.aut.android.podcasts.domain.PodcastInteractor
 import javax.inject.Inject
 

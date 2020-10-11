@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
-class BestPodcastDataSource(
+class BestDataSource(
     private val podcastInteractor: PodcastInteractor
 ) :
     PageKeyedDataSource<Int, Podcast>() {

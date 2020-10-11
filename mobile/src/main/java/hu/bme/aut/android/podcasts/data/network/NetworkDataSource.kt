@@ -1,10 +1,7 @@
 package hu.bme.aut.android.podcasts.data.network
 
 import dagger.Lazy
-import hu.bme.aut.android.podcasts.domain.GenresResult
-import hu.bme.aut.android.podcasts.domain.Language
-import hu.bme.aut.android.podcasts.domain.Region
-import hu.bme.aut.android.podcasts.domain.SearchResult
+import hu.bme.aut.android.podcasts.domain.*
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.GenreDecoder
 import hu.bme.aut.android.podcasts.util.extensions.toInt
@@ -32,4 +29,8 @@ class NetworkDataSource @Inject constructor(
 
     suspend fun getAvailableLanguages(): List<Language> =
         listenNotesAPI.getLanguages().languages.map { Language(it) }
+
+    suspend fun getPodcast(id: String): FullPodcast {
+        return listenNotesAPI.getPodcast(id).toFullPodcast(genreDecoder, favouriteDecoder)
+    }
 }

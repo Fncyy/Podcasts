@@ -96,6 +96,9 @@ class DetailsFragment : RainbowCakeFragment<DetailsViewState, DetailsViewModel>(
             .setToolbarColor(resources.getColor(R.color.colorPrimary, null))
             .build()
 
+        podcastWebsiteButton.isEnabled = podcast.website.isNotEmpty()
+        listenNotesWebsiteButton.isEnabled = podcast.listenNotesUrl.isNotEmpty()
+
         podcastWebsiteButton.setOnClickListener {
             chromeIntent.launchUrl(requireContext(), Uri.parse(podcast.website))
         }

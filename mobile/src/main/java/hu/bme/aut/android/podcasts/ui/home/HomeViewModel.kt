@@ -5,13 +5,13 @@ import androidx.lifecycle.Transformations.switchMap
 import co.zsmb.rainbowcake.base.RainbowCakeViewModel
 import com.google.firebase.auth.FirebaseUser
 import hu.bme.aut.android.podcasts.domain.Podcast
-import hu.bme.aut.android.podcasts.util.paging.BestPodcastsRepository
+import hu.bme.aut.android.podcasts.util.paging.BestRepository
 import hu.bme.aut.android.podcasts.util.paging.Listing
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     private val homePresenter: HomePresenter,
-    bestPodcastsRepository: BestPodcastsRepository
+    bestRepository: BestRepository
 ) : RainbowCakeViewModel<HomeViewState>(Loading) {
 
     private val podcastsList = MutableLiveData<Listing<Podcast>>()
@@ -19,7 +19,7 @@ class HomeViewModel @Inject constructor(
     var networkState = switchMap(podcastsList) { it.networkState }
 
     init {
-        podcastsList.value = bestPodcastsRepository.getPagedPodcasts()
+        podcastsList.value = bestRepository.getPagedPodcasts()
         viewState = HomeReady
     }
 

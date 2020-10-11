@@ -1,9 +1,9 @@
 package hu.bme.aut.android.podcasts.ui.favourites
 
-sealed class FavouritesViewState
+import hu.bme.aut.android.podcasts.domain.Podcast
 
-object Initial : FavouritesViewState()
+sealed class FavouritesViewState
 
 object Loading : FavouritesViewState()
 
-data class FavouritesReady(val data: String = "") : FavouritesViewState()
+data class FavouritesReady(val podcasts: List<Podcast>) : FavouritesViewState()

@@ -7,18 +7,18 @@ import androidx.paging.toLiveData
 import hu.bme.aut.android.podcasts.domain.Podcast
 import javax.inject.Inject
 
-class BestPodcastsRepository @Inject constructor(
-    private val bestPodcastsDataSourceFactory: BestPodcastsDataSourceFactory
+class BestRepository @Inject constructor(
+    private val bestDataSourceFactory: BestDataSourceFactory
 ) {
     fun getPagedPodcasts(): Listing<Podcast> {
         val livePagedList =
-            bestPodcastsDataSourceFactory.toLiveData(20)
+            bestDataSourceFactory.toLiveData(20)
         return Listing(
             pagedList = livePagedList,
-            networkState = switchMap(bestPodcastsDataSourceFactory.sourceLiveData) {
+            networkState = switchMap(bestDataSourceFactory.sourceLiveData) {
                 it.networkState
             },
-            retry = { bestPodcastsDataSourceFactory.sourceLiveData.value?.retryAllFailed() }
+            retry = { bestDataSourceFactory.sourceLiveData.value?.retryAllFailed() }
         )
     }
 }

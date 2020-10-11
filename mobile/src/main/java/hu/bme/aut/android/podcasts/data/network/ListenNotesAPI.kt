@@ -1,10 +1,8 @@
 package hu.bme.aut.android.podcasts.data.network
 
-import hu.bme.aut.android.podcasts.data.network.model.BestPodcastsResponse
-import hu.bme.aut.android.podcasts.data.network.model.GenresResponse
-import hu.bme.aut.android.podcasts.data.network.model.LanguagesWrapper
-import hu.bme.aut.android.podcasts.data.network.model.RegionsWrapper
+import hu.bme.aut.android.podcasts.data.network.model.*
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ListenNotesAPI {
@@ -26,4 +24,9 @@ interface ListenNotesAPI {
 
     @GET("languages")
     suspend fun getLanguages(): LanguagesWrapper
+
+    @GET("podcasts/{id}")
+    suspend fun getPodcast(
+        @Path("id") id: String
+    ): IndividualPodcast
 }

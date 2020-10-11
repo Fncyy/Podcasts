@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.util.paging
+package hu.bme.aut.android.podcasts.ui.favourites
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -22,78 +20,38 @@ import kotlin.math.abs
 
 class PodcastAdapter(
     private val context: Context,
-    favouriteDecoder: FavouriteDecoder,
-    private val retryCallback: () -> Unit
-) : PagedListAdapter<Podcast, RecyclerView.ViewHolder>(POST_COMPARATOR),
+    favouriteDecoder: FavouriteDecoder
+) :
+    RecyclerView.Adapter<PodcastAdapter.ViewHolder>(),
     FavouriteDecoder.FavouriteListener {
-
-    var podcastUpdateListener: PodcastUpdateListener? = null
-    private var networkState: NetworkState? = null
 
     init {
         favouriteDecoder.subscribe(this)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            R.layout.item_podcast -> {
-                val view =
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item_podcast, parent, false)
-                PodcastViewHolder(view)
-            }
-            R.layout.item_network_state -> {
-                val view =
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item_network_state, parent, false)
-                NetworkStateItemViewHolder(view, retryCallback)
-            }
-            else -> throw IllegalArgumentException("unknown view type $viewType")
-        }
+    private val podcasts: MutableList<Podcast> = mutableListOf()
+
+    var podcastUpdateListener: PodcastUpdateListener? = null
+
+    fun addElements(list: List<Podcast>) {
+        val size = podcasts.size
+        podcasts.addAll(list)
+        notifyItemRangeInserted(size, list.size)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (getItemViewType(position)) {
-            R.layout.item_podcast -> (holder as PodcastViewHolder).bind(
-                getItem(position),
-                position
-            )
-            R.layout.item_network_state -> (holder as NetworkStateItemViewHolder).bindTo(
-                networkState
-            )
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_podcast, parent, false)
+        return ViewHolder(view)
     }
 
-    private fun hasExtraRow() =
-        networkState != null && networkState != NetworkState.LOADED
-
-    override fun getItemViewType(position: Int): Int {
-        return if (hasExtraRow() && position == itemCount - 1) {
-            R.layout.item_network_state
-        } else {
-            R.layout.item_podcast
-        }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(podcasts[position], position)
     }
 
-    override fun getItemCount(): Int = super.getItemCount() + if (hasExtraRow()) 1 else 0
+    override fun getItemCount(): Int = podcasts.size
 
-    fun setNetworkState(newNetworkState: NetworkState?) {
-        val previousState = this.networkState
-        val hadExtraRow = hasExtraRow()
-        this.networkState = newNetworkState
-        val hasExtraRow = hasExtraRow()
-        if (hadExtraRow != hasExtraRow) {
-            if (hadExtraRow) {
-                notifyItemRemoved(super.getItemCount())
-            } else {
-                notifyItemInserted(super.getItemCount())
-            }
-        } else if (hasExtraRow && previousState != newNetworkState) {
-            notifyItemChanged(itemCount - 1)
-        }
-    }
-
-    inner class PodcastViewHolder(itemView: View) :
+    inner class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView),
         ReboundingSwipeActionCallback.ReboundableViewHolder {
 
@@ -116,19 +74,19 @@ class PodcastAdapter(
             frame.background = PodcastSwipeActionDrawable(context)
         }
 
-        fun bind(item: Podcast?, position: Int) {
+        fun bind(item: Podcast, position: Int) {
             podcast = item
 
             pos = position
 
-            ViewCompat.setTransitionName(cardView, item?.id + "root")
+            ViewCompat.setTransitionName(cardView, item.id + "root")
 
-            title.text = item?.title
-            explicit.visibility = if (item?.explicitContent == true) View.VISIBLE else View.GONE
-            publisher.text = item?.publisher
-            categories.text = item?.genres
+            title.text = item.title
+            explicit.visibility = if (item.explicitContent) View.VISIBLE else View.GONE
+            publisher.text = item.publisher
+            categories.text = item.genres
             Glide.with(thumbnail)
-                .load(item?.thumbnail)
+                .load(item.thumbnail)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .fitCenter()
                 .into(thumbnail)
@@ -141,8 +99,8 @@ class PodcastAdapter(
                     podcastUpdateListener?.onPodcastSelected(it.id, extras)
                 }
             }
-            updateCardViewTopLeftCornerSize(if (item?.starred == true) 1F else 0F)
-            frame.isActivated = item?.starred == true
+            updateCardViewTopLeftCornerSize(if (item.starred) 1F else 0F)
+            frame.isActivated = item.starred
         }
 
         override val reboundableView: View = cardView
@@ -173,7 +131,7 @@ class PodcastAdapter(
 
         override fun onRebounded() {
             podcast?.let {
-                currentList?.get(pos)?.starred = !(it.starred)
+                podcasts[pos].starred = !(it.starred)
                 podcastUpdateListener?.onPodcastStarred(it.id, it.starred)
             }
         }
@@ -191,20 +149,6 @@ class PodcastAdapter(
         }
     }
 
-    companion object {
-        val POST_COMPARATOR = object : DiffUtil.ItemCallback<Podcast>() {
-            override fun areContentsTheSame(oldItem: Podcast, newItem: Podcast): Boolean =
-                oldItem.id == newItem.id
-
-            override fun areItemsTheSame(oldItem: Podcast, newItem: Podcast): Boolean =
-                oldItem.id == newItem.id
-
-            override fun getChangePayload(oldItem: Podcast, newItem: Podcast): Any? {
-                return null
-            }
-        }
-    }
-
 
     interface PodcastUpdateListener {
         fun onPodcastSelected(id: String, extras: FragmentNavigator.Extras)
@@ -212,9 +156,9 @@ class PodcastAdapter(
     }
 
     override fun onFavouriteUpdated(id: String, starred: Boolean) {
-        currentList?.filter { podcast ->
+        podcasts.filter { podcast ->
             podcast.id == id
-        }?.run {
+        }.run {
             forEach {
                 it.starred = starred
             }

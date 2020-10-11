@@ -18,21 +18,29 @@ class FavouriteDecoder @Inject constructor(
 
     private val favourites: MutableList<String> = mutableListOf()
 
+    private var initialized = false
+
     private fun initialize() {
         val response =
-            userInteractor.getFavourites(FirebaseAuth.getInstance().currentUser?.uid ?: "", this)
+            userInteractor.initializeFavourites(
+                FirebaseAuth.getInstance().currentUser?.uid ?: "",
+                this
+            )
         favourites.apply {
             clear()
             addAll(response)
         }
+        initialized = true
     }
+
+    fun getFavourites() = favourites
 
     fun subscribe(listener: FavouriteListener) {
         updateListeners.add(listener)
     }
 
     fun checkStarred(id: String): Boolean {
-        initialize()
+        if (!initialized) initialize()
         return favourites.contains(id)
     }
 

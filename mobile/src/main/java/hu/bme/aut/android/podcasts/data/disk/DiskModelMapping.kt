@@ -1,6 +1,7 @@
 package hu.bme.aut.android.podcasts.data.disk
 
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomBestPodcastItem
+import hu.bme.aut.android.podcasts.data.disk.entities.RoomFavouritePodcastItem
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomSearchPodcastItem
 import hu.bme.aut.android.podcasts.domain.FullPodcast
 
@@ -12,12 +13,12 @@ fun RoomBestPodcastItem.toPodcast() = FullPodcast(
     id = id,
     listenNotesUrl = listenNotesUrl,
     publisher = publisher,
+    starred = starred,
     thumbnail = thumbnail,
     title = title,
     totalEpisodes = totalEpisodes,
     type = type,
-    website = website,
-    starred = starred
+    website = website
 )
 
 fun RoomSearchPodcastItem.toPodcast() = FullPodcast(
@@ -28,42 +29,75 @@ fun RoomSearchPodcastItem.toPodcast() = FullPodcast(
     id = id,
     listenNotesUrl = listenNotesUrl,
     publisher = publisher,
+    starred = starred,
     thumbnail = thumbnail,
     title = title,
     totalEpisodes = totalEpisodes,
     type = type,
-    website = website,
-    starred = starred
+    website = website
+)
+
+fun RoomFavouritePodcastItem.toPodcast() = FullPodcast(
+    country = country,
+    description = description,
+    explicitContent = explicitContent,
+    genres = genres,
+    id = id,
+    listenNotesUrl = listenNotesUrl,
+    publisher = publisher,
+    starred = starred,
+    thumbnail = thumbnail,
+    title = title,
+    totalEpisodes = totalEpisodes,
+    type = type,
+    website = website
 )
 
 fun FullPodcast.toRoomBestPodcastItem() = RoomBestPodcastItem(
-    id = id,
     country = country,
     description = description,
     explicitContent = explicitContent,
     genres = genres,
-    listenNotesUrl = listenNotesUrl,
+    id = id,
+    listenNotesUrl = listenNotesUrl ?: "",
     publisher = publisher,
+    starred = starred,
     thumbnail = thumbnail,
     title = title,
     totalEpisodes = totalEpisodes,
     type = type,
-    website = website,
-    starred = starred
+    website = website ?: ""
 )
 
 fun FullPodcast.toRoomSearchPodcastItem() = RoomSearchPodcastItem(
-    id = id,
     country = country,
     description = description,
     explicitContent = explicitContent,
     genres = genres,
-    listenNotesUrl = listenNotesUrl,
+    id = id,
+    listenNotesUrl = listenNotesUrl ?: "",
     publisher = publisher,
+    starred = starred,
     thumbnail = thumbnail,
     title = title,
     totalEpisodes = totalEpisodes,
     type = type,
-    website = website,
-    starred = starred
+    website = website
 )
+
+fun FullPodcast.toRoomFavouritePodcastItem() = RoomFavouritePodcastItem(
+    country = country,
+    description = description,
+    explicitContent = explicitContent,
+    genres = genres,
+    id = id,
+    listenNotesUrl = listenNotesUrl,
+    publisher = publisher,
+    starred = starred,
+    thumbnail = thumbnail,
+    title = title,
+    totalEpisodes = totalEpisodes,
+    type = type,
+    website = website
+)
+

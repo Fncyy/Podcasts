@@ -34,7 +34,7 @@ class UserInteractor @Inject constructor(
         firebaseDatabaseAccessor.updateUserData(id, diskDataSource.getUserData(""))
     }
 
-    fun getFavourites(
+    fun initializeFavourites(
         id: String,
         listener: FirebaseDatabaseInsertionListener
     ): List<String> {

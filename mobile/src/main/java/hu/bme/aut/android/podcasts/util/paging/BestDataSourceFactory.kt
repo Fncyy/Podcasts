@@ -6,12 +6,12 @@ import hu.bme.aut.android.podcasts.domain.Podcast
 import hu.bme.aut.android.podcasts.domain.PodcastInteractor
 import javax.inject.Inject
 
-class BestPodcastsDataSourceFactory @Inject constructor(
+class BestDataSourceFactory @Inject constructor(
     private val podcastInteractor: PodcastInteractor
 ) : DataSource.Factory<Int, Podcast>() {
-    val sourceLiveData = MutableLiveData<BestPodcastDataSource>()
+    val sourceLiveData = MutableLiveData<BestDataSource>()
     override fun create(): DataSource<Int, Podcast> {
-        val source = BestPodcastDataSource(podcastInteractor)
+        val source = BestDataSource(podcastInteractor)
         sourceLiveData.postValue(source)
         return source
     }
