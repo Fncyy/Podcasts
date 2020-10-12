@@ -59,14 +59,14 @@ fun FullPodcast.toRoomBestPodcastItem() = RoomBestPodcastItem(
     explicitContent = explicitContent,
     genres = genres,
     id = id,
-    listenNotesUrl = listenNotesUrl ?: "",
+    listenNotesUrl = listenNotesUrl,
     publisher = publisher,
     starred = starred,
     thumbnail = thumbnail,
     title = title,
     totalEpisodes = totalEpisodes,
     type = type,
-    website = website ?: ""
+    website = website
 )
 
 fun FullPodcast.toRoomSearchPodcastItem() = RoomSearchPodcastItem(
@@ -75,7 +75,7 @@ fun FullPodcast.toRoomSearchPodcastItem() = RoomSearchPodcastItem(
     explicitContent = explicitContent,
     genres = genres,
     id = id,
-    listenNotesUrl = listenNotesUrl ?: "",
+    listenNotesUrl = listenNotesUrl,
     publisher = publisher,
     starred = starred,
     thumbnail = thumbnail,

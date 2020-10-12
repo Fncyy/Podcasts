@@ -6,4 +6,4 @@ object Initial : SearchViewState()
 
 object Loading : SearchViewState()
 
-data class SearchReady(val data: String = "") : SearchViewState()
+object SearchReady : SearchViewState()

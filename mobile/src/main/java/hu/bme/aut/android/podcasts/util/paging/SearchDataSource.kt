@@ -4,13 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import hu.bme.aut.android.podcasts.domain.Podcast
 import hu.bme.aut.android.podcasts.domain.PodcastInteractor
-import hu.bme.aut.android.podcasts.ui.home.toBestPodcasts
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
-class BestDataSource(
-    private val podcastInteractor: PodcastInteractor
+class SearchDataSource(
+    private val podcastInteractor: PodcastInteractor,
+    private val query: String
 ) : PageKeyedDataSource<Int, Podcast>() {
 
     private var retry: (() -> Any)? = null
@@ -34,11 +34,10 @@ class BestDataSource(
 
         CoroutineScope(Dispatchers.IO).async {
             try {
-                podcastInteractor.removeAllBestPodcasts()
-                val result = podcastInteractor.getBestPodcasts(null, null, null).toBestPodcasts()
-                val next = if (result.hasNext) result.nextPageNumber else null
+                podcastInteractor.removeAllSearchPodcasts()
+                val result = podcastInteractor.getSearchResult(query, null, null)
                 networkState.postValue(NetworkState.LOADED)
-                callback.onResult(result.podcasts, null, next)
+                callback.onResult(result.podcasts, null, result.nextOffset)
             } catch (e: Exception) {
                 retry = { loadInitial(params, callback) }
                 val error = NetworkState.error("The server could not be reached.")
@@ -57,10 +56,9 @@ class BestDataSource(
         CoroutineScope(Dispatchers.IO).async {
             try {
                 val result =
-                    podcastInteractor.getBestPodcasts(null, params.key, null).toBestPodcasts()
-                val next = if (result.hasNext) result.nextPageNumber else null
+                    podcastInteractor.getSearchResult(query, params.key, null)
                 networkState.postValue(NetworkState.LOADED)
-                callback.onResult(result.podcasts, next)
+                callback.onResult(result.podcasts, result.nextOffset)
             } catch (e: Exception) {
                 retry = { loadAfter(params, callback) }
                 networkState.postValue(NetworkState.error("The server could not be reached."))

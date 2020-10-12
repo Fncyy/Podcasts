@@ -9,3 +9,19 @@ fun FullPodcast.toPodcast() = Podcast(
     title = title,
     starred = starred
 )
+
+fun Podcast.toFullPodcast() = FullPodcast(
+    country = "",
+    description = "",
+    explicitContent = explicitContent,
+    genres = genres,
+    id = id,
+    listenNotesUrl = "",
+    publisher = publisher,
+    starred = starred,
+    thumbnail = thumbnail,
+    title = title,
+    totalEpisodes = 0,
+    type = "",
+    website = ""
+)

@@ -14,12 +14,12 @@ class NetworkDataSource @Inject constructor(
     private val genreDecoder: Lazy<GenreDecoder>,
     private val favouriteDecoder: Lazy<FavouriteDecoder>
 ) {
-    suspend fun getBestPodcasts(genreId: String?, page: Int?, safeMode: Int?): SearchResult =
+    suspend fun getBestPodcasts(genreId: String?, page: Int?, safeMode: Int?): BestPodcastResult =
         listenNotesAPI.getBestPodcasts(
             genreId = genreId ?: "0",
             page = page ?: 1,
             safeMode = safeMode ?: 0
-        ).toSearchResult(genreDecoder, favouriteDecoder)
+        ).toBestPodcastResult(genreDecoder, favouriteDecoder)
 
     suspend fun getGenres(topLevelOnly: Boolean = false): GenresResult =
         listenNotesAPI.getGenres(topLevelOnly = topLevelOnly.toInt()).toGenresResult()
@@ -32,5 +32,10 @@ class NetworkDataSource @Inject constructor(
 
     suspend fun getPodcast(id: String): FullPodcast {
         return listenNotesAPI.getPodcast(id).toFullPodcast(genreDecoder, favouriteDecoder)
+    }
+
+    suspend fun getSearchResult(query: String, offset: Int?, safeMode: Int?): SearchResult {
+        return listenNotesAPI.getSearchResult(query, offset, safeMode)
+            .toSearchResult(genreDecoder, favouriteDecoder)
     }
 }

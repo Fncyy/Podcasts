@@ -12,7 +12,7 @@ class PodcastInteractor @Inject constructor(
     private val favouriteDecoder: Lazy<FavouriteDecoder>
 ) {
 
-    suspend fun getBestPodcasts(genreId: String?, page: Int?, safeMode: Int?): SearchResult {
+    suspend fun getBestPodcasts(genreId: String?, page: Int?, safeMode: Int?): BestPodcastResult {
         val result = networkDataSource.getBestPodcasts(genreId, page, safeMode)
         diskDataSource.insertAllBestPodcasts(result.podcasts)
         return result
@@ -30,6 +30,10 @@ class PodcastInteractor @Inject constructor(
 
     suspend fun removeAllBestPodcasts() {
         diskDataSource.removeAllBestPodcasts()
+    }
+
+    suspend fun removeAllSearchPodcasts() {
+        diskDataSource.removeAllSearchPodcasts()
     }
 
     suspend fun getBestPodcastById(id: String): FullPodcast? {
@@ -51,5 +55,9 @@ class PodcastInteractor @Inject constructor(
 
     suspend fun getAvailableLanguages(): List<Language> {
         return networkDataSource.getAvailableLanguages()
+    }
+
+    suspend fun getSearchResult(query: String, offset: Int?, safeMode: Int?): SearchResult {
+        return networkDataSource.getSearchResult(query, offset, safeMode)
     }
 }

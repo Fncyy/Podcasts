@@ -1,8 +1,6 @@
 package hu.bme.aut.android.podcasts.util.paging
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations.switchMap
-import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import hu.bme.aut.android.podcasts.domain.Podcast
 import javax.inject.Inject
@@ -22,9 +20,3 @@ class BestRepository @Inject constructor(
         )
     }
 }
-
-data class Listing<T>(
-    val pagedList: LiveData<PagedList<T>>,
-    val networkState: LiveData<NetworkState>,
-    val retry: () -> Unit
-)

@@ -29,4 +29,12 @@ interface ListenNotesAPI {
     suspend fun getPodcast(
         @Path("id") id: String
     ): IndividualPodcast
+
+    @GET("search")
+    suspend fun getSearchResult(
+        @Query("q") query: String,
+        @Query("offset") offset: Int?,
+        @Query("safe_mode") safeMode: Int?,
+        @Query("type") type: String = "podcast"
+    ): SearchResponse
 }

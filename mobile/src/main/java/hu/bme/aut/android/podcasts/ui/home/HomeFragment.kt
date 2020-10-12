@@ -18,17 +18,17 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
+class HomeFragment :
+    RainbowCakeFragment<HomeViewState, HomeViewModel>(),
     PodcastAdapter.PodcastUpdateListener {
-
-    @Inject
-    lateinit var favouriteDecoder: FavouriteDecoder
 
     @Inject
     lateinit var injectedViewModel: HomeViewModel
     override fun provideViewModel() = injectedViewModel
     override fun getViewResource() = R.layout.fragment_home
 
+    @Inject
+    lateinit var favouriteDecoder: FavouriteDecoder
     private lateinit var podcastAdapter: PodcastAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,13 +65,8 @@ class HomeFragment : RainbowCakeFragment<HomeViewState, HomeViewModel>(),
         homeProgress.visibility = View.INVISIBLE
         bestPodcastsList.visibility = View.INVISIBLE
         when (viewState) {
-            is HomeReady -> {
-                bestPodcastsList.visibility = View.VISIBLE
-                //podcastAdapter.addElements(viewState.bestPodcasts.podcasts)
-            }
-            is Loading -> {
-                homeProgress.visibility = View.VISIBLE
-            }
+            is HomeReady -> bestPodcastsList.visibility = View.VISIBLE
+            is Loading -> homeProgress.visibility = View.VISIBLE
         }
     }
 
