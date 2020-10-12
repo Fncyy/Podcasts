@@ -1,7 +1,5 @@
 package hu.bme.aut.android.podcasts.util.paging
 
-import androidx.lifecycle.MutableLiveData
-import androidx.paging.PageKeyedDataSource
 import hu.bme.aut.android.podcasts.domain.Podcast
 import hu.bme.aut.android.podcasts.domain.PodcastInteractor
 import kotlinx.coroutines.CoroutineScope
@@ -11,20 +9,7 @@ import kotlinx.coroutines.async
 class SearchDataSource(
     private val podcastInteractor: PodcastInteractor,
     private val query: String
-) : PageKeyedDataSource<Int, Podcast>() {
-
-    private var retry: (() -> Any)? = null
-    val networkState = MutableLiveData<NetworkState>()
-
-    fun retryAllFailed() {
-        val prevRetry = retry
-        retry = null
-        prevRetry?.let {
-            CoroutineScope(Dispatchers.IO).async {
-                it.invoke()
-            }
-        }
-    }
+) : PodcastDataSource() {
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,

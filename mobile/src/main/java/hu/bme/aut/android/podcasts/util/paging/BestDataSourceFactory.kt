@@ -9,7 +9,9 @@ import javax.inject.Inject
 class BestDataSourceFactory @Inject constructor(
     private val podcastInteractor: PodcastInteractor
 ) : DataSource.Factory<Int, Podcast>() {
+
     val sourceLiveData = MutableLiveData<BestDataSource>()
+
     override fun create(): DataSource<Int, Podcast> {
         val source = BestDataSource(podcastInteractor)
         sourceLiveData.postValue(source)

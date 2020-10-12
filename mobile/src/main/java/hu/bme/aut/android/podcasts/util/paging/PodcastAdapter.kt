@@ -137,16 +137,17 @@ class PodcastAdapter(
 
             categories.post {
                 val set = ConstraintSet().apply { clone(itemConstraint) }
-                if (categories.top < thumbnail.bottom) {
-                    set.connect(categories.id, ConstraintSet.END, thumbnail.id, ConstraintSet.START)
-                } else {
-                    set.connect(
-                        categories.id,
-                        ConstraintSet.END,
-                        ConstraintSet.PARENT_ID,
-                        ConstraintSet.END
-                    )
-                }
+                if (categories.top < thumbnail.bottom) set.connect(
+                    categories.id,
+                    ConstraintSet.END,
+                    thumbnail.id,
+                    ConstraintSet.START
+                ) else set.connect(
+                    categories.id,
+                    ConstraintSet.END,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.END
+                )
                 set.applyTo(itemConstraint)
             }
 
