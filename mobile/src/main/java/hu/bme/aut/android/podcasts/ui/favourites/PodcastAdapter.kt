@@ -55,8 +55,8 @@ class PodcastAdapter(
         RecyclerView.ViewHolder(itemView),
         ReboundingSwipeActionCallback.ReboundableViewHolder {
 
-        private val cardView = itemView.item_card_view
-        private val frame = itemView.item_root
+        private val cardView = itemView.itemCardView
+        private val frame = itemView.itemRoot
         private val title = itemView.titleText
         private val publisher = itemView.publisherText
         private val explicit = itemView.explicitImage

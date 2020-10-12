@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.ViewCompat
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -97,13 +98,14 @@ class PodcastAdapter(
         RecyclerView.ViewHolder(itemView),
         ReboundingSwipeActionCallback.ReboundableViewHolder {
 
-        private val cardView = itemView.item_card_view
-        private val frame = itemView.item_root
+        private val cardView = itemView.itemCardView
+        private val frame = itemView.itemRoot
         private val title = itemView.titleText
         private val publisher = itemView.publisherText
         private val explicit = itemView.explicitImage
         private val categories = itemView.categoriesText
         private val thumbnail = itemView.thumbnailImage
+        private val itemConstraint = itemView.itemConstraint
 
         private var podcast: Podcast? = null
 
@@ -132,6 +134,21 @@ class PodcastAdapter(
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .fitCenter()
                 .into(thumbnail)
+
+            categories.post {
+                val set = ConstraintSet().apply { clone(itemConstraint) }
+                if (categories.top < thumbnail.bottom) {
+                    set.connect(categories.id, ConstraintSet.END, thumbnail.id, ConstraintSet.START)
+                } else {
+                    set.connect(
+                        categories.id,
+                        ConstraintSet.END,
+                        ConstraintSet.PARENT_ID,
+                        ConstraintSet.END
+                    )
+                }
+                set.applyTo(itemConstraint)
+            }
 
             cardView.setOnClickListener {
                 podcast?.let {

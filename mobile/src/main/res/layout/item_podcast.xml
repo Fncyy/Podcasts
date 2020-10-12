@@ -2,14 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_root"
+    android:id="@+id/itemRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_1"
     android:layout_marginVertical="@dimen/grid_0_5">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/item_card_view"
+        android:id="@+id/itemCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorBackgroundFloating"
@@ -19,6 +19,7 @@
         app:cardPreventCornerOverlap="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/itemConstraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/grid_2"
