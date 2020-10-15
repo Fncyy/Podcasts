@@ -3,6 +3,7 @@ package hu.bme.aut.android.podcasts.util
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import hu.bme.aut.android.podcasts.domain.UserInteractor
+import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
 import hu.bme.aut.android.podcasts.util.FirebaseDatabaseAccessor.FirebaseDatabaseInsertionListener
 import javax.inject.Inject
 import javax.inject.Singleton

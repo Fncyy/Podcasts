@@ -1,9 +1,9 @@
 package hu.bme.aut.android.podcasts.domain
 
 import hu.bme.aut.android.podcasts.data.disk.DiskDataSource
+import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
 import hu.bme.aut.android.podcasts.util.FirebaseDatabaseAccessor
 import hu.bme.aut.android.podcasts.util.FirebaseDatabaseAccessor.FirebaseDatabaseInsertionListener
-import hu.bme.aut.android.podcasts.util.SharedPreferencesProvider
 import javax.inject.Inject
 
 class UserInteractor @Inject constructor(

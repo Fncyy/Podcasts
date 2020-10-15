@@ -1,11 +1,11 @@
 package hu.bme.aut.android.podcasts.data.network
 
 import dagger.Lazy
-import hu.bme.aut.android.podcasts.data.network.model.*
 import hu.bme.aut.android.podcasts.domain.BestPodcastResult
 import hu.bme.aut.android.podcasts.domain.FullPodcast
 import hu.bme.aut.android.podcasts.domain.GenresResult
 import hu.bme.aut.android.podcasts.domain.SearchResult
+import hu.bme.aut.android.podcasts.shared.data.network.model.*
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.GenreDecoder
 import hu.bme.aut.android.podcasts.domain.Podcast as DomainPodcast
@@ -74,7 +74,7 @@ suspend fun SearchResponse.toSearchResult(
     total = total ?: 0
 )
 
-suspend fun Result.toPodcast(
+suspend fun hu.bme.aut.android.podcasts.shared.data.network.model.Result.toPodcast(
     genreDecoder: Lazy<GenreDecoder>,
     favouriteDecoder: Lazy<FavouriteDecoder>
 ) = DomainPodcast(

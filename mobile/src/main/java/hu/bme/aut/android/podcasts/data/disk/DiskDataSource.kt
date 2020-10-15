@@ -6,7 +6,7 @@ import hu.bme.aut.android.podcasts.domain.FullPodcast
 import hu.bme.aut.android.podcasts.domain.Language
 import hu.bme.aut.android.podcasts.domain.Region
 import hu.bme.aut.android.podcasts.domain.UserData
-import hu.bme.aut.android.podcasts.util.SharedPreferencesProvider
+import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
 import javax.inject.Inject
 import javax.inject.Singleton
 
