@@ -1,6 +1,5 @@
 package hu.bme.aut.android.podcasts.util
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import hu.bme.aut.android.podcasts.domain.UserInteractor
 import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
@@ -51,7 +50,6 @@ class FavouriteDecoder @Inject constructor(
                 favourites.add(podcastId)
         } else
             favourites.remove(podcastId)
-        Log.d("Firebase", "Decoder uploading: $favourites")
         sharedPreferencesProvider.editFavourites(favourites)
         if (userId.isNotEmpty())
             firebaseDatabaseAccessor.updateFavourites(userId, favourites)
