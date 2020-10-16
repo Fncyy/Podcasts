@@ -1,14 +1,17 @@
 <resources>
     <string name="app_name">Podcasts</string>
 
-    <string name="title_favourites">Favourites</string>
-    <string name="title_home">Podcasts</string>
-    <string name="title_search">Search</string>
-
     <string name="bottom_nav_menu_favourites">Favourites</string>
     <string name="bottom_nav_menu_home">Home</string>
     <string name="bottom_nav_menu_menu">Menu</string>
     <string name="bottom_nav_menu_search">Search</string>
+
+    <string name="details_explicit_content_desc">Explicit content</string>
+    <string name="details_listen_notes">Listen Notes</string>
+    <string name="details_misc_text">%1$s, %2$d episodes, $%3$s type</string>
+    <string name="details_podcast_website">Podcast website</string>
+    <string name="details_star_button_content_desc">Add to favourites button</string>
+    <string name="details_thumbnail_content_desc">Podcast image</string>
 
     <string name="menu_button_login">Login</string>
     <string name="menu_button_logout">Logout</string>
@@ -21,16 +24,13 @@
 
     <string name="paging_error_retry">Retry</string>
 
-    <string name="details_explicit_content_desc">Explicit content</string>
-    <string name="details_listen_notes">Listen Notes</string>
-    <string name="details_podcast_website">Podcast website</string>
-    <string name="details_star_button_content_desc">Add to favourites button</string>
-    <string name="details_thumbnail_content_desc">Podcast image</string>
-    <string name="details_misc_text">%1$s, %2$d episodes, $%3$s type</string>
-
-    <string name="register_full_name">Full name</string>
-    <string name="register_email">Email</string>
-    <string name="register_password_again">Password again</string>
-    <string name="register_password">Password</string>
     <string name="register_button_register">Register</string>
+    <string name="register_email">Email</string>
+    <string name="register_full_name">Full name</string>
+    <string name="register_password">Password</string>
+    <string name="register_password_again">Password again</string>
+
+    <string name="title_favourites">Favourites</string>
+    <string name="title_home">Podcasts</string>
+    <string name="title_search">Search</string>
 </resources>
