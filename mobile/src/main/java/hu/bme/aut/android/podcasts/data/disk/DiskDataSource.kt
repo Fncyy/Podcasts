@@ -1,12 +1,13 @@
 package hu.bme.aut.android.podcasts.data.disk
 
+import hu.bme.aut.android.podcasts.data.disk.entities.RoomFavouritePodcastItem
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomLanguageItem
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomRegionItem
 import hu.bme.aut.android.podcasts.domain.FullPodcast
 import hu.bme.aut.android.podcasts.domain.Language
 import hu.bme.aut.android.podcasts.domain.Region
 import hu.bme.aut.android.podcasts.domain.UserData
-import hu.bme.aut.android.podcasts.util.SharedPreferencesProvider
+import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -63,9 +64,21 @@ class DiskDataSource @Inject constructor(
         favouritePodcastDao.removeAllPodcasts()
     }
 
-    suspend fun updateFavourite(id: String, starred: Boolean) {
+    suspend fun getAllFavouritePodcasts(): List<FullPodcast> {
+        return favouritePodcastDao.getPodcasts().map(RoomFavouritePodcastItem::toPodcast)
+    }
+
+    suspend fun updateFavourite(id: String, starred: Boolean, podcast: FullPodcast?) {
         bestPodcastDao.updateFavourite(id, starred)
         searchPodcastDao.updateFavourite(id, starred)
+        when {
+            starred -> if (podcast != null) favouritePodcastDao.insertPodcast(podcast.toRoomFavouritePodcastItem())
+            else favouritePodcastDao.removePodcast(id)
+        }
+    }
+
+    suspend fun insertFavouritePodcast(podcast: FullPodcast) {
+        favouritePodcastDao.insertPodcast(podcast.toRoomFavouritePodcastItem())
     }
 
     suspend fun getRegions(): List<Region> {

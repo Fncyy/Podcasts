@@ -19,13 +19,16 @@ class PodcastInteractor @Inject constructor(
     }
 
     suspend fun getFavouritePodcasts(): List<Podcast> {
-        diskDataSource.removeAllFavouritePodcasts()
-        return mutableListOf<FullPodcast>().also { podcasts ->
-            favouriteDecoder.get().getFavourites().forEach { id ->
-                podcasts.add(networkDataSource.getPodcast(id))
+        val podcasts: MutableList<Podcast> =
+            diskDataSource.getAllFavouritePodcasts().map(FullPodcast::toPodcast).toMutableList()
+        favouriteDecoder.get().getFavourites().forEach { id ->
+            if (podcasts.none { podcast -> id == podcast.id }) {
+                val podcast = networkDataSource.getPodcast(id)
+                diskDataSource.insertFavouritePodcast(podcast)
+                podcasts.add(podcast.toPodcast())
             }
-            diskDataSource.insertAllFavouritePodcasts(podcasts)
-        }.map(FullPodcast::toPodcast)
+        }
+        return podcasts
     }
 
     suspend fun removeAllBestPodcasts() {
@@ -46,7 +49,9 @@ class PodcastInteractor @Inject constructor(
 
     suspend fun updateFavourites(uid: String, id: String, starred: Boolean) {
         favouriteDecoder.get().updateStarred(uid, id, starred)
-        diskDataSource.updateFavourite(id, starred)
+        val podcast =
+            if (starred) networkDataSource.getPodcast(id) else null
+        diskDataSource.updateFavourite(id, starred, podcast)
     }
 
     suspend fun getAvailableRegions(): List<Region> {
