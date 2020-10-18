@@ -1,6 +1,10 @@
 package hu.bme.aut.android.podcasts.ui.menu
 
-import hu.bme.aut.android.podcasts.domain.*
+import hu.bme.aut.android.podcasts.domain.PodcastInteractor
+import hu.bme.aut.android.podcasts.domain.UserInteractor
+import hu.bme.aut.android.podcasts.shared.domain.model.Language
+import hu.bme.aut.android.podcasts.shared.domain.model.Region
+import hu.bme.aut.android.podcasts.shared.domain.model.UserData
 import hu.bme.aut.android.podcasts.util.FirebaseDatabaseAccessor.FirebaseDatabaseInsertionListener
 import javax.inject.Inject
 
@@ -21,23 +25,8 @@ class MenuPresenter @Inject constructor(
         userInteractor.updateUserData(id, data)
     }
 
-    suspend fun updateExplicitContent(id: String, explicit: Boolean) {
-        userInteractor.updateExplicitContent(id, explicit)
-    }
-
-    suspend fun getRegions(id: String, listener: FirebaseDatabaseInsertionListener): List<Region> {
-        return userInteractor.getRegions(id, listener)
-    }
-
     suspend fun getAvailableRegions(): List<Region> {
         return podcastInteractor.getAvailableRegions()
-    }
-
-    suspend fun getLanguages(
-        id: String,
-        listener: FirebaseDatabaseInsertionListener
-    ): List<Language> {
-        return userInteractor.getLanguages(id, listener)
     }
 
     suspend fun getAvailableLanguages(): List<Language> {

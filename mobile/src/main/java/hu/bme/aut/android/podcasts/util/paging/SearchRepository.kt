@@ -2,7 +2,7 @@ package hu.bme.aut.android.podcasts.util.paging
 
 import androidx.lifecycle.Transformations
 import androidx.paging.toLiveData
-import hu.bme.aut.android.podcasts.domain.Podcast
+import hu.bme.aut.android.podcasts.domain.model.Podcast
 import javax.inject.Inject
 
 class SearchRepository @Inject constructor(

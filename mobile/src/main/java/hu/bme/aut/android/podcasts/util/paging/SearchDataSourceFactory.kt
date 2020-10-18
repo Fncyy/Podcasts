@@ -2,8 +2,8 @@ package hu.bme.aut.android.podcasts.util.paging
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import hu.bme.aut.android.podcasts.domain.Podcast
 import hu.bme.aut.android.podcasts.domain.PodcastInteractor
+import hu.bme.aut.android.podcasts.domain.model.Podcast
 import javax.inject.Inject
 
 class SearchDataSourceFactory @Inject constructor(

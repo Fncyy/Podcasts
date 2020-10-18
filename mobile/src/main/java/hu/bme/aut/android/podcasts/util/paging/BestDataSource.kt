@@ -1,7 +1,7 @@
 package hu.bme.aut.android.podcasts.util.paging
 
-import hu.bme.aut.android.podcasts.domain.Podcast
 import hu.bme.aut.android.podcasts.domain.PodcastInteractor
+import hu.bme.aut.android.podcasts.domain.model.Podcast
 import hu.bme.aut.android.podcasts.ui.home.toBestPodcasts
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

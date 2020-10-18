@@ -17,10 +17,10 @@
     <string name="menu_button_logout">Logout</string>
     <string name="menu_button_register">Register</string>
     <string name="menu_explicit_content">Explicit content</string>
-    <string name="menu_languages">Languages of Podcasts</string>
+    <string name="menu_language">Preferred language of Podcasts</string>
     <string name="menu_logo_content_desc">Powered by Listen Notes logo</string>
     <string name="menu_profile_content_desc">Profile picture</string>
-    <string name="menu_regions">Regions of Podcasts</string>
+    <string name="menu_region">Preferred region of Podcasts</string>
 
     <string name="paging_error_retry">Retry</string>
 

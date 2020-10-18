@@ -1,6 +1,6 @@
 package hu.bme.aut.android.podcasts.ui.details
 
-import hu.bme.aut.android.podcasts.domain.FullPodcast
+import hu.bme.aut.android.podcasts.domain.model.FullPodcast
 import hu.bme.aut.android.podcasts.ui.details.DetailsPresenter.Podcast
 
 fun FullPodcast.toPodcast() = Podcast(

@@ -3,6 +3,9 @@ package hu.bme.aut.android.podcasts.domain
 import dagger.Lazy
 import hu.bme.aut.android.podcasts.data.disk.DiskDataSource
 import hu.bme.aut.android.podcasts.data.network.NetworkDataSource
+import hu.bme.aut.android.podcasts.domain.model.*
+import hu.bme.aut.android.podcasts.shared.domain.model.Language
+import hu.bme.aut.android.podcasts.shared.domain.model.Region
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import javax.inject.Inject
 

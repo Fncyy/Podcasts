@@ -1,14 +1,14 @@
 package hu.bme.aut.android.podcasts.data.network
 
 import dagger.Lazy
-import hu.bme.aut.android.podcasts.domain.BestPodcastResult
-import hu.bme.aut.android.podcasts.domain.FullPodcast
-import hu.bme.aut.android.podcasts.domain.GenresResult
-import hu.bme.aut.android.podcasts.domain.SearchResult
+import hu.bme.aut.android.podcasts.domain.model.BestPodcastResult
+import hu.bme.aut.android.podcasts.domain.model.FullPodcast
+import hu.bme.aut.android.podcasts.domain.model.GenresResult
+import hu.bme.aut.android.podcasts.domain.model.SearchResult
 import hu.bme.aut.android.podcasts.shared.data.network.model.*
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.GenreDecoder
-import hu.bme.aut.android.podcasts.domain.Podcast as DomainPodcast
+import hu.bme.aut.android.podcasts.domain.model.Podcast as DomainPodcast
 
 suspend fun BestPodcastsResponse.toBestPodcastResult(
     genreDecoder: Lazy<GenreDecoder>,
