@@ -37,8 +37,6 @@ class MenuFragment : RainbowCakeFragment<MenuViewState, MenuViewModel>() {
 
     override fun onStop() {
         val user = (activity as MainActivity).auth.currentUser
-        val reg = regionsText
-        val lang = languagesText
         val data = UserData(
             displayName = user?.displayName ?: "",
             explicitContent = explicitContentButton.isChecked,

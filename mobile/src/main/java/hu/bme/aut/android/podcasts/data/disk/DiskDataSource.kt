@@ -2,8 +2,6 @@ package hu.bme.aut.android.podcasts.data.disk
 
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomFavouritePodcastItem
 import hu.bme.aut.android.podcasts.domain.model.FullPodcast
-import hu.bme.aut.android.podcasts.shared.domain.model.Language
-import hu.bme.aut.android.podcasts.shared.domain.model.Region
 import hu.bme.aut.android.podcasts.shared.domain.model.UserData
 import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
 import javax.inject.Inject
@@ -13,8 +11,6 @@ import javax.inject.Singleton
 class DiskDataSource @Inject constructor(
     private val bestPodcastDao: BestPodcastDao,
     private val favouritePodcastDao: FavouritePodcastDao,
-    private val languageDao: LanguageDao,
-    private val regionDao: RegionDao,
     private val searchPodcastDao: SearchPodcastDao,
     private val sharedPreferencesProvider: SharedPreferencesProvider
 ) {
@@ -73,12 +69,8 @@ class DiskDataSource @Inject constructor(
         favouritePodcastDao.insertPodcast(podcast.toRoomFavouritePodcastItem())
     }
 
-    suspend fun getRegions(): List<Region> {
-        return regionDao.getRegions().map { Region(it.key, it.name) }
-    }
-
-    suspend fun getLanguages(): List<Language> {
-        return languageDao.getLanguages().map { Language(it.name) }
+    suspend fun removeFavouritePodcast(id: String) {
+        favouritePodcastDao.removePodcast(id)
     }
 
 }

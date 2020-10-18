@@ -24,11 +24,19 @@ class PodcastInteractor @Inject constructor(
     suspend fun getFavouritePodcasts(): List<Podcast> {
         val podcasts: MutableList<Podcast> =
             diskDataSource.getAllFavouritePodcasts().map(FullPodcast::toPodcast).toMutableList()
-        favouriteDecoder.get().getFavourites().forEach { id ->
-            if (podcasts.none { podcast -> id == podcast.id }) {
-                val podcast = networkDataSource.getPodcast(id)
-                diskDataSource.insertFavouritePodcast(podcast)
-                podcasts.add(podcast.toPodcast())
+        val favourites = favouriteDecoder.get().getFavourites().apply {
+            forEach { id ->
+                if (podcasts.none { podcast -> id == podcast.id }) {
+                    val podcast = networkDataSource.getPodcast(id)
+                    diskDataSource.insertFavouritePodcast(podcast)
+                    podcasts.add(podcast.toPodcast())
+                }
+            }
+        }
+        podcasts.forEach { podcast ->
+            if (favourites.none { favourite -> podcast.id == favourite }) {
+                podcasts.remove(podcast)
+                diskDataSource.removeFavouritePodcast(podcast.id)
             }
         }
         return podcasts
