@@ -15,7 +15,7 @@ class UserInteractor @Inject constructor(
 
     suspend fun getUserData(
         id: String,
-        displayName: String,
+        displayName: String = "",
         listener: FirebaseDatabaseInsertionListener
     ): UserData {
         return if (id.isEmpty()) {

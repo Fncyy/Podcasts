@@ -8,7 +8,7 @@
 
     <string name="details_explicit_content_desc">Explicit content</string>
     <string name="details_listen_notes">Listen Notes</string>
-    <string name="details_misc_text">%1$s, %2$d episodes, $%3$s type</string>
+    <string name="details_misc_text">%1$s, %2$d episodes, %3$s type</string>
     <string name="details_podcast_website">Podcast website</string>
     <string name="details_star_button_content_desc">Add to favourites button</string>
     <string name="details_thumbnail_content_desc">Podcast image</string>

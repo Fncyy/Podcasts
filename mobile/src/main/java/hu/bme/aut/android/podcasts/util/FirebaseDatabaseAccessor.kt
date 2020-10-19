@@ -4,10 +4,12 @@ import com.google.firebase.database.*
 import hu.bme.aut.android.podcasts.shared.domain.model.Language
 import hu.bme.aut.android.podcasts.shared.domain.model.Region
 import hu.bme.aut.android.podcasts.shared.domain.model.UserData
-import javax.inject.Singleton
+import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
+import javax.inject.Inject
 
-@Singleton
-class FirebaseDatabaseAccessor {
+class FirebaseDatabaseAccessor @Inject constructor(
+    private val sharedPreferencesProvider: SharedPreferencesProvider
+) {
 
     private companion object {
         private const val EXPLICIT = "explicit"
@@ -54,8 +56,12 @@ class FirebaseDatabaseAccessor {
     }
 
     fun updateFavourites(id: String, list: List<String>) {
+        val truncatedList = list.toMutableList().apply { remove("") }
         instance.reference.child(id).child(FAVOURITES).run {
-            setValue(list)
+            if (truncatedList.isNotEmpty())
+                setValue(truncatedList)
+            else
+                removeValue()
         }
     }
 
@@ -91,9 +97,9 @@ class FirebaseDatabaseAccessor {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     listeners.forEach {
-                        it.onExplicitChanged(
-                            snapshot.getValue(Boolean::class.java) ?: true
-                        )
+                        val value = snapshot.getValue(Boolean::class.java) ?: true
+                        it.onExplicitChanged(value)
+                        sharedPreferencesProvider.editExplicitContent(value)
                     }
                 }
 
@@ -117,9 +123,9 @@ class FirebaseDatabaseAccessor {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     listeners.forEach {
                         val result = (snapshot.getValue(String::class.java) ?: ",").split(",")
-                        it.onRegionChanged(
-                            Region(result.first(), result.last())
-                        )
+                        val value = Region(result.first(), result.last())
+                        it.onRegionChanged(value)
+                        sharedPreferencesProvider.editRegion(value)
                     }
                 }
 
@@ -141,9 +147,9 @@ class FirebaseDatabaseAccessor {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     listeners.forEach {
-                        it.onLanguageChanged(
-                            Language(snapshot.getValue(String::class.java) ?: "")
-                        )
+                        val value = Language(snapshot.getValue(String::class.java) ?: "")
+                        it.onLanguageChanged(value)
+                        sharedPreferencesProvider.editLanguage(value)
                     }
                 }
 

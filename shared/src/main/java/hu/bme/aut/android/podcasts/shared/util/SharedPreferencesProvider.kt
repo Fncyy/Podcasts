@@ -28,7 +28,7 @@ class SharedPreferencesProvider @Inject constructor(
         preferences = context.getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE)
     }
 
-    fun getUserData(displayName: String) = UserData(
+    fun getUserData(displayName: String = "") = UserData(
         displayName = displayName,
         explicitContent = getExplicitContent(),
         region = getRegion(),
@@ -41,11 +41,11 @@ class SharedPreferencesProvider @Inject constructor(
         editLanguage(userData.language!!)
     }
 
-    private fun getExplicitContent(): Boolean {
+    fun getExplicitContent(): Boolean {
         return preferences.getBoolean(EXPLICIT_KEY, true)
     }
 
-    private fun editExplicitContent(explicitContent: Boolean) {
+    fun editExplicitContent(explicitContent: Boolean) {
         with(preferences.edit()) {
             putBoolean(EXPLICIT_KEY, explicitContent)
             commit()
@@ -63,23 +63,23 @@ class SharedPreferencesProvider @Inject constructor(
         }
     }
 
-    private fun getRegion(): Region {
+    fun getRegion(): Region {
         val region = preferences.getString(REGION_KEY, ",")?.split(",") ?: return Region()
         return Region(region.first(), region.last())
     }
 
-    private fun editRegion(region: Region) {
+    fun editRegion(region: Region) {
         with(preferences.edit()) {
             putString(REGION_KEY, "${region.key},${region.name}")
             commit()
         }
     }
 
-    private fun getLanguage(): Language {
+    fun getLanguage(): Language {
         return Language(preferences.getString(LANGUAGE_KEY, "") ?: "")
     }
 
-    private fun editLanguage(language: Language) {
+    fun editLanguage(language: Language) {
         with(preferences.edit()) {
             putString(LANGUAGE_KEY, language.name)
             commit()

@@ -20,11 +20,17 @@ class NetworkDataSource @Inject constructor(
     private val genreDecoder: Lazy<GenreDecoder>,
     private val favouriteDecoder: Lazy<FavouriteDecoder>
 ) {
-    suspend fun getBestPodcasts(genreId: String?, page: Int?, safeMode: Int?): BestPodcastResult =
+    suspend fun getBestPodcasts(
+        genreId: String?,
+        page: Int?,
+        safeMode: Int?,
+        region: Region?
+    ): BestPodcastResult =
         listenNotesAPI.getBestPodcasts(
             genreId = genreId ?: "0",
             page = page ?: 1,
-            safeMode = safeMode ?: 0
+            safeMode = safeMode,
+            region = region?.key
         ).toBestPodcastResult(genreDecoder, favouriteDecoder)
 
     suspend fun getGenres(topLevelOnly: Boolean = false): GenresResult =

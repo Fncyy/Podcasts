@@ -6,17 +6,25 @@ import hu.bme.aut.android.podcasts.data.network.NetworkDataSource
 import hu.bme.aut.android.podcasts.domain.model.*
 import hu.bme.aut.android.podcasts.shared.domain.model.Language
 import hu.bme.aut.android.podcasts.shared.domain.model.Region
+import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
+import hu.bme.aut.android.podcasts.util.extensions.toExplicit
 import javax.inject.Inject
 
 class PodcastInteractor @Inject constructor(
-    private val networkDataSource: NetworkDataSource,
     private val diskDataSource: DiskDataSource,
-    private val favouriteDecoder: Lazy<FavouriteDecoder>
+    private val favouriteDecoder: Lazy<FavouriteDecoder>,
+    private val networkDataSource: NetworkDataSource,
+    private val sharedPreferencesProvider: SharedPreferencesProvider
 ) {
 
-    suspend fun getBestPodcasts(genreId: String?, page: Int?, safeMode: Int?): BestPodcastResult {
-        val result = networkDataSource.getBestPodcasts(genreId, page, safeMode)
+    suspend fun getBestPodcasts(genreId: String?, page: Int?): BestPodcastResult {
+        val result = networkDataSource.getBestPodcasts(
+            genreId,
+            page,
+            sharedPreferencesProvider.getExplicitContent().toExplicit(),
+            sharedPreferencesProvider.getRegion()
+        )
         diskDataSource.insertAllBestPodcasts(result.podcasts)
         return result
     }

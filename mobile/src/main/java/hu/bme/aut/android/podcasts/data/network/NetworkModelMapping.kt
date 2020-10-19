@@ -30,21 +30,23 @@ fun GenresResponse.toGenresResult() = GenresResult(
 suspend fun Podcast.toFullPodcast(
     genreDecoder: Lazy<GenreDecoder>,
     favouriteDecoder: Lazy<FavouriteDecoder>
-) = FullPodcast(
-    country = country ?: "",
-    description = description ?: "",
-    explicitContent = explicit_content ?: false,
-    genres = genreDecoder.get().decodeKeys(genre_ids),
-    id = id,
-    listenNotesUrl = listennotes_url ?: "",
-    publisher = publisher ?: "",
-    starred = favouriteDecoder.get().checkStarred(id),
-    thumbnail = thumbnail ?: "",
-    title = title ?: "",
-    totalEpisodes = total_episodes ?: 0,
-    type = type ?: "",
-    website = website ?: ""
-)
+): FullPodcast {
+    return FullPodcast(
+        country = country ?: "",
+        description = description ?: "",
+        explicitContent = explicit_content ?: false,
+        genres = genre_ids?.let { genreDecoder.get().decodeKeys(it) } ?: "Genre not specified",
+        id = id,
+        listenNotesUrl = listennotes_url ?: "",
+        publisher = publisher ?: "",
+        starred = favouriteDecoder.get().checkStarred(id),
+        thumbnail = thumbnail ?: "",
+        title = title ?: "",
+        totalEpisodes = total_episodes ?: 0,
+        type = type ?: "",
+        website = website ?: ""
+    )
+}
 
 suspend fun IndividualPodcast.toFullPodcast(
     genreDecoder: Lazy<GenreDecoder>,
