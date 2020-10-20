@@ -6,4 +6,7 @@
     <color name="colorAccent">#B0273C</color>
     <color name="colorBackground">#99EFEFF4</color>
     <color name="colorBackgroundFloating">#FFFFFF</color>
+    <color name="segmented_controls_background">#99C8C8C8</color>
+    <color name="segmented_controls_pressed">#99FFFFFF</color>
+    <color name="segmented_controls_foreground">#FFFFFF</color>
 </resources>

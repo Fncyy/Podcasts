@@ -1,8 +1,8 @@
 package hu.bme.aut.android.podcasts.ui.menu
 
-import hu.bme.aut.android.podcasts.domain.Language
-import hu.bme.aut.android.podcasts.domain.Region
-import hu.bme.aut.android.podcasts.domain.UserData
+import hu.bme.aut.android.podcasts.shared.domain.model.Language
+import hu.bme.aut.android.podcasts.shared.domain.model.Region
+import hu.bme.aut.android.podcasts.shared.domain.model.UserData
 
 
 sealed class MenuViewState

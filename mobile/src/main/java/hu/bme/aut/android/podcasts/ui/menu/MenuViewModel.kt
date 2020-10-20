@@ -4,9 +4,9 @@ import android.util.Log
 import co.zsmb.rainbowcake.base.OneShotEvent
 import co.zsmb.rainbowcake.base.RainbowCakeViewModel
 import com.google.firebase.auth.FirebaseUser
-import hu.bme.aut.android.podcasts.domain.Language
-import hu.bme.aut.android.podcasts.domain.Region
-import hu.bme.aut.android.podcasts.domain.UserData
+import hu.bme.aut.android.podcasts.shared.domain.model.Language
+import hu.bme.aut.android.podcasts.shared.domain.model.Region
+import hu.bme.aut.android.podcasts.shared.domain.model.UserData
 import hu.bme.aut.android.podcasts.util.FirebaseDatabaseAccessor
 import javax.inject.Inject
 
@@ -43,15 +43,11 @@ class MenuViewModel @Inject constructor(
         menuPresenter.updateSettings(user?.uid ?: "", data)
     }
 
-    fun updateExplicitContent(id: String, explicit: Boolean) = execute {
-        menuPresenter.updateExplicitContent(id, explicit)
-    }
-
-    override fun onRegionAdded(region: Region) {
+    override fun onRegionChanged(region: Region) {
         postEvent(NewRegionEvent(region))
     }
 
-    override fun onLanguageAdded(language: Language) {
+    override fun onLanguageChanged(language: Language) {
         postEvent(NewLanguageEvent(language))
     }
 

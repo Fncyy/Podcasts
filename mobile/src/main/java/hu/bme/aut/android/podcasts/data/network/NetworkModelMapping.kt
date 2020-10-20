@@ -1,14 +1,14 @@
 package hu.bme.aut.android.podcasts.data.network
 
 import dagger.Lazy
-import hu.bme.aut.android.podcasts.domain.BestPodcastResult
-import hu.bme.aut.android.podcasts.domain.FullPodcast
-import hu.bme.aut.android.podcasts.domain.GenresResult
-import hu.bme.aut.android.podcasts.domain.SearchResult
+import hu.bme.aut.android.podcasts.domain.model.BestPodcastResult
+import hu.bme.aut.android.podcasts.domain.model.FullPodcast
+import hu.bme.aut.android.podcasts.domain.model.GenresResult
+import hu.bme.aut.android.podcasts.domain.model.SearchResult
 import hu.bme.aut.android.podcasts.shared.data.network.model.*
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.GenreDecoder
-import hu.bme.aut.android.podcasts.domain.Podcast as DomainPodcast
+import hu.bme.aut.android.podcasts.domain.model.Podcast as DomainPodcast
 
 suspend fun BestPodcastsResponse.toBestPodcastResult(
     genreDecoder: Lazy<GenreDecoder>,
@@ -30,21 +30,23 @@ fun GenresResponse.toGenresResult() = GenresResult(
 suspend fun Podcast.toFullPodcast(
     genreDecoder: Lazy<GenreDecoder>,
     favouriteDecoder: Lazy<FavouriteDecoder>
-) = FullPodcast(
-    country = country ?: "",
-    description = description ?: "",
-    explicitContent = explicit_content ?: false,
-    genres = genreDecoder.get().decodeKeys(genre_ids),
-    id = id,
-    listenNotesUrl = listennotes_url ?: "",
-    publisher = publisher ?: "",
-    starred = favouriteDecoder.get().checkStarred(id),
-    thumbnail = thumbnail ?: "",
-    title = title ?: "",
-    totalEpisodes = total_episodes ?: 0,
-    type = type ?: "",
-    website = website ?: ""
-)
+): FullPodcast {
+    return FullPodcast(
+        country = country ?: "",
+        description = description ?: "",
+        explicitContent = explicit_content ?: false,
+        genres = genre_ids?.let { genreDecoder.get().decodeKeys(it) } ?: "Genre not specified",
+        id = id,
+        listenNotesUrl = listennotes_url ?: "",
+        publisher = publisher ?: "",
+        starred = favouriteDecoder.get().checkStarred(id),
+        thumbnail = thumbnail ?: "",
+        title = title ?: "",
+        totalEpisodes = total_episodes ?: 0,
+        type = type ?: "",
+        website = website ?: ""
+    )
+}
 
 suspend fun IndividualPodcast.toFullPodcast(
     genreDecoder: Lazy<GenreDecoder>,

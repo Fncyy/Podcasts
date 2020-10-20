@@ -11,7 +11,8 @@ interface ListenNotesAPI {
     suspend fun getBestPodcasts(
         @Query("genre_id") genreId: String,
         @Query("page") page: Int,
-        @Query("safe_mode") safeMode: Int
+        @Query("safe_mode") safeMode: Int?,
+        @Query("region") region: String?
     ): BestPodcastsResponse
 
     @GET("genres")
@@ -35,6 +36,9 @@ interface ListenNotesAPI {
         @Query("q") query: String,
         @Query("offset") offset: Int?,
         @Query("safe_mode") safeMode: Int?,
+        @Query("language") language: String?,
+        @Query("region") region: String?,
+        @Query("sort_by_date") sortBy: Int?,
         @Query("type") type: String = "podcast"
     ): SearchResponse
 }

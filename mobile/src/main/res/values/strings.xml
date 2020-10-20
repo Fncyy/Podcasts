@@ -8,7 +8,7 @@
 
     <string name="details_explicit_content_desc">Explicit content</string>
     <string name="details_listen_notes">Listen Notes</string>
-    <string name="details_misc_text">%1$s, %2$d episodes, $%3$s type</string>
+    <string name="details_misc_text">%1$s, %2$d episodes, %3$s type</string>
     <string name="details_podcast_website">Podcast website</string>
     <string name="details_star_button_content_desc">Add to favourites button</string>
     <string name="details_thumbnail_content_desc">Podcast image</string>
@@ -17,10 +17,10 @@
     <string name="menu_button_logout">Logout</string>
     <string name="menu_button_register">Register</string>
     <string name="menu_explicit_content">Explicit content</string>
-    <string name="menu_languages">Languages of Podcasts</string>
+    <string name="menu_language">Preferred language of Podcasts</string>
     <string name="menu_logo_content_desc">Powered by Listen Notes logo</string>
     <string name="menu_profile_content_desc">Profile picture</string>
-    <string name="menu_regions">Regions of Podcasts</string>
+    <string name="menu_region">Preferred region of Podcasts</string>
 
     <string name="paging_error_retry">Retry</string>
 
@@ -30,7 +30,17 @@
     <string name="register_password">Password</string>
     <string name="register_password_again">Password again</string>
 
+    <string name="search_input_hint">Search for podcasts</string>
+    <string name="search_sort_by_date">Date</string>
+    <string name="search_sort_by_relevance">Relevance</string>
+
     <string name="title_favourites">Favourites</string>
     <string name="title_home">Podcasts</string>
     <string name="title_search">Search</string>
+    <string name="search_button_search">Search</string>
+    <string name="search_language_hint">Language</string>
+    <string name="search_region_hint">Region</string>
+    <string name="search_max_episodes_hint">Max. episodes</string>
+    <string name="search_episode_divider">—</string>
+    <string name="search_min_episodes_hint">Min. episodes</string>
 </resources>

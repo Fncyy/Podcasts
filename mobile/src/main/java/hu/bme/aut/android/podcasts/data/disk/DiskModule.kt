@@ -34,16 +34,6 @@ class DiskModule {
 
     @Provides
     @Singleton
-    fun provideLanguageDao(podcastDatabase: PodcastDatabase): LanguageDao =
-        podcastDatabase.languageDao()
-
-    @Provides
-    @Singleton
-    fun provideRegionDao(podcastDatabase: PodcastDatabase): RegionDao =
-        podcastDatabase.regionDao()
-
-    @Provides
-    @Singleton
     fun provideSearchPodcastDao(podcastDatabase: PodcastDatabase): SearchPodcastDao =
         podcastDatabase.searchPodcastDao()
 }

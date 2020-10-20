@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import hu.bme.aut.android.podcasts.R
-import hu.bme.aut.android.podcasts.domain.Podcast
+import hu.bme.aut.android.podcasts.domain.model.Podcast
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.animation.PodcastSwipeActionDrawable
 import hu.bme.aut.android.podcasts.util.animation.ReboundingSwipeActionCallback

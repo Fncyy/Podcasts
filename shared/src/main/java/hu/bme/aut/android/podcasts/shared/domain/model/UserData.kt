@@ -1,10 +1,10 @@
-package hu.bme.aut.android.podcasts.domain
+package hu.bme.aut.android.podcasts.shared.domain.model
 
 data class UserData(
     val displayName: String,
     val explicitContent: Boolean?,
-    val regions: MutableList<Region>?,
-    val languages: MutableList<Language>?
+    val region: Region?,
+    val language: Language?
 )
 
 data class Region(

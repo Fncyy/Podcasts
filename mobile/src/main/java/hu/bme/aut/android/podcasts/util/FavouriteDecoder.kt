@@ -60,6 +60,8 @@ class FavouriteDecoder @Inject constructor(
     }
 
     override fun onFavouriteAdded(id: String) {
+        if (id.isEmpty())
+            return
         if (!favourites.contains(id))
             favourites.add(id)
         updateListeners.forEach { it.onFavouriteUpdated(id, true) }

@@ -72,32 +72,34 @@
                 android:text="@string/menu_explicit_content" />
 
             <TextView
-                android:id="@+id/regionsLabel"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/grid_2"
-                android:text="@string/menu_regions" />
+                android:labelFor="@id/regionsText"
+                android:text="@string/menu_region" />
 
-            <com.hootsuite.nachos.NachoTextView
+            <AutoCompleteTextView
                 android:id="@+id/regionsText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/grid_0_5" />
+                android:layout_marginTop="@dimen/grid_0_5"
+                android:selectAllOnFocus="true" />
 
             <TextView
-                android:id="@+id/languagesLabel"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/grid_2"
-                android:text="@string/menu_languages" />
+                android:labelFor="@id/languagesText"
+                android:text="@string/menu_language" />
 
-            <com.hootsuite.nachos.NachoTextView
+            <AutoCompleteTextView
                 android:id="@+id/languagesText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/grid_0_5" />
+                android:layout_marginTop="@dimen/grid_0_5"
+                android:selectAllOnFocus="true" />
         </LinearLayout>
     </ScrollView>
 

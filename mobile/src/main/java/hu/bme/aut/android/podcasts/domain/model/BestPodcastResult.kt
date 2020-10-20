@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.domain
+package hu.bme.aut.android.podcasts.domain.model
 
 
 data class BestPodcastResult(

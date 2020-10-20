@@ -3,7 +3,7 @@ package hu.bme.aut.android.podcasts.data.disk
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomBestPodcastItem
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomFavouritePodcastItem
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomSearchPodcastItem
-import hu.bme.aut.android.podcasts.domain.FullPodcast
+import hu.bme.aut.android.podcasts.domain.model.FullPodcast
 
 fun RoomBestPodcastItem.toPodcast() = FullPodcast(
     country = country,

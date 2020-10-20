@@ -1,19 +1,21 @@
 package hu.bme.aut.android.podcasts.util
 
 import com.google.firebase.database.*
-import hu.bme.aut.android.podcasts.domain.Language
-import hu.bme.aut.android.podcasts.domain.Region
-import hu.bme.aut.android.podcasts.domain.UserData
-import javax.inject.Singleton
+import hu.bme.aut.android.podcasts.shared.domain.model.Language
+import hu.bme.aut.android.podcasts.shared.domain.model.Region
+import hu.bme.aut.android.podcasts.shared.domain.model.UserData
+import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
+import javax.inject.Inject
 
-@Singleton
-class FirebaseDatabaseAccessor {
+class FirebaseDatabaseAccessor @Inject constructor(
+    private val sharedPreferencesProvider: SharedPreferencesProvider
+) {
 
     private companion object {
         private const val EXPLICIT = "explicit"
         private const val FAVOURITES = "favourites"
-        private const val REGIONS = "regions"
-        private const val LANGUAGES = "languages"
+        private const val REGION = "region"
+        private const val LANGUAGE = "language"
     }
 
     private val instance = FirebaseDatabase.getInstance()
@@ -22,53 +24,6 @@ class FirebaseDatabaseAccessor {
 
     private var userId = ""
     private var favouritesListeners = mutableListOf<ChildEventListener>()
-
-    fun getUserData(
-        id: String,
-        displayName: String,
-        listener: FirebaseDatabaseInsertionListener
-    ): UserData {
-        getExplicitContent(id, listener)
-        getRegions(id, listener)
-        getLanguages(id, listener)
-        return UserData(
-            displayName = displayName,
-            explicitContent = null,
-            regions = null,
-            languages = null
-        )
-    }
-
-    fun updateUserData(id: String, data: UserData) {
-        updateExplicitContent(id, data.explicitContent!!)
-        updateRegions(id, data.regions!!)
-        updateLanguages(id, data.languages!!)
-    }
-
-    private fun getExplicitContent(
-        id: String,
-        listener: FirebaseDatabaseInsertionListener
-    ): Boolean {
-        if (!listeners.contains(listener))
-            listeners.add(listener)
-        instance.reference.child(id).child(EXPLICIT)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    listeners.forEach {
-                        it.onExplicitChanged(
-                            snapshot.getValue(Boolean::class.java) ?: true
-                        )
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {}
-            })
-        return false
-    }
-
-    fun updateExplicitContent(id: String, explicit: Boolean) {
-        instance.reference.child(id).child(EXPLICIT).setValue(explicit)
-    }
 
     fun getFavourites(id: String, listener: FirebaseDatabaseInsertionListener): List<String> {
         if (!listeners.contains(listener))
@@ -101,64 +56,115 @@ class FirebaseDatabaseAccessor {
     }
 
     fun updateFavourites(id: String, list: List<String>) {
+        val truncatedList = list.toMutableList().apply { remove("") }
         instance.reference.child(id).child(FAVOURITES).run {
-            setValue(list)
+            if (truncatedList.isNotEmpty())
+                setValue(truncatedList)
+            else
+                removeValue()
         }
     }
 
-    fun getRegions(id: String, listener: FirebaseDatabaseInsertionListener): MutableList<Region> {
-        if (!listeners.contains(listener))
-            listeners.add(listener)
-        instance.reference.child(id).child(REGIONS)
-            .addChildEventListener(object : ChildEventListener {
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val region = snapshot.getValue(Region::class.java)
-                    if (region != null)
-                        listeners.forEach { it.onRegionAdded(region) }
-                }
-
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-                override fun onChildRemoved(snapshot: DataSnapshot) {}
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-                override fun onCancelled(error: DatabaseError) {}
-            })
-        return mutableListOf()
+    fun getUserData(
+        id: String,
+        displayName: String,
+        listener: FirebaseDatabaseInsertionListener
+    ): UserData {
+        getExplicitContent(id, listener)
+        getRegion(id, listener)
+        getLanguage(id, listener)
+        return UserData(
+            displayName = displayName,
+            explicitContent = null,
+            region = null,
+            language = null
+        )
     }
 
-    private fun updateRegions(id: String, list: List<Region>) {
-        instance.reference.child(id).child(REGIONS).setValue(list)
+    fun updateUserData(id: String, data: UserData) {
+        updateExplicitContent(id, data.explicitContent!!)
+        updateRegion(id, data.region!!)
+        updateLanguage(id, data.language!!)
     }
 
-    fun getLanguages(
+    private fun getExplicitContent(
         id: String,
         listener: FirebaseDatabaseInsertionListener
-    ): MutableList<Language> {
+    ): Boolean {
         if (!listeners.contains(listener))
             listeners.add(listener)
-        instance.reference.child(id).child(LANGUAGES)
-            .addChildEventListener(object : ChildEventListener {
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val language = snapshot.getValue(Language::class.java)
-                    if (language != null)
-                        listeners.forEach { it.onLanguageAdded(language) }
+        instance.reference.child(id).child(EXPLICIT)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    listeners.forEach {
+                        val value = snapshot.getValue(Boolean::class.java) ?: true
+                        it.onExplicitChanged(value)
+                        sharedPreferencesProvider.editExplicitContent(value)
+                    }
                 }
 
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-                override fun onChildRemoved(snapshot: DataSnapshot) {}
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
                 override fun onCancelled(error: DatabaseError) {}
             })
-        return mutableListOf()
+        return false
     }
 
-    private fun updateLanguages(id: String, list: List<Language>) {
-        instance.reference.child(id).child(LANGUAGES).setValue(list)
+    private fun updateExplicitContent(id: String, explicit: Boolean) {
+        instance.reference.child(id).child(EXPLICIT).setValue(explicit)
+    }
+
+    private fun getRegion(
+        id: String,
+        listener: FirebaseDatabaseInsertionListener
+    ) {
+        if (!listeners.contains(listener))
+            listeners.add(listener)
+        instance.reference.child(id).child(REGION)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    listeners.forEach {
+                        val result = (snapshot.getValue(String::class.java) ?: ",").split(",")
+                        val value = Region(result.first(), result.last())
+                        it.onRegionChanged(value)
+                        sharedPreferencesProvider.editRegion(value)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
+    }
+
+    private fun updateRegion(id: String, region: Region) {
+        instance.reference.child(id).child(REGION).setValue("${region.key},${region.name}")
+    }
+
+    private fun getLanguage(
+        id: String,
+        listener: FirebaseDatabaseInsertionListener
+    ) {
+        if (!listeners.contains(listener))
+            listeners.add(listener)
+        instance.reference.child(id).child(LANGUAGE)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    listeners.forEach {
+                        val value = Language(snapshot.getValue(String::class.java) ?: "")
+                        it.onLanguageChanged(value)
+                        sharedPreferencesProvider.editLanguage(value)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
+    }
+
+    private fun updateLanguage(id: String, language: Language) {
+        instance.reference.child(id).child(LANGUAGE).setValue(language.name)
     }
 
     interface FirebaseDatabaseInsertionListener {
         fun onExplicitChanged(explicit: Boolean) {}
         fun onFavouriteAdded(id: String) {}
-        fun onRegionAdded(region: Region) {}
-        fun onLanguageAdded(language: Language) {}
+        fun onRegionChanged(region: Region) {}
+        fun onLanguageChanged(language: Language) {}
     }
 }

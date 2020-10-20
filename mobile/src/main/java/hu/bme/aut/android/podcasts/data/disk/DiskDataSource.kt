@@ -1,12 +1,8 @@
 package hu.bme.aut.android.podcasts.data.disk
 
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomFavouritePodcastItem
-import hu.bme.aut.android.podcasts.data.disk.entities.RoomLanguageItem
-import hu.bme.aut.android.podcasts.data.disk.entities.RoomRegionItem
-import hu.bme.aut.android.podcasts.domain.FullPodcast
-import hu.bme.aut.android.podcasts.domain.Language
-import hu.bme.aut.android.podcasts.domain.Region
-import hu.bme.aut.android.podcasts.domain.UserData
+import hu.bme.aut.android.podcasts.domain.model.FullPodcast
+import hu.bme.aut.android.podcasts.shared.domain.model.UserData
 import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,23 +11,15 @@ import javax.inject.Singleton
 class DiskDataSource @Inject constructor(
     private val bestPodcastDao: BestPodcastDao,
     private val favouritePodcastDao: FavouritePodcastDao,
-    private val languageDao: LanguageDao,
-    private val regionDao: RegionDao,
     private val searchPodcastDao: SearchPodcastDao,
     private val sharedPreferencesProvider: SharedPreferencesProvider
 ) {
 
-    suspend fun getUserData(displayName: String) = UserData(
-        displayName = displayName,
-        explicitContent = sharedPreferencesProvider.getExplicitContent(),
-        languages = languageDao.getLanguages().map { Language(it.name) }.toMutableList(),
-        regions = regionDao.getRegions().map { Region(it.key, it.name) }.toMutableList()
-    )
+    suspend fun getUserData(displayName: String) =
+        sharedPreferencesProvider.getUserData(displayName)
 
     suspend fun updateUserData(userData: UserData) {
-        sharedPreferencesProvider.editExplicitContent(userData.explicitContent!!)
-        languageDao.insertAllLanguages(userData.languages!!.map { RoomLanguageItem(it.name) })
-        regionDao.insertAllRegions(userData.regions!!.map { RoomRegionItem(it.key, it.name) })
+        sharedPreferencesProvider.updateUserData(userData)
     }
 
     suspend fun getPodcastById(id: String): FullPodcast? {
@@ -81,12 +69,8 @@ class DiskDataSource @Inject constructor(
         favouritePodcastDao.insertPodcast(podcast.toRoomFavouritePodcastItem())
     }
 
-    suspend fun getRegions(): List<Region> {
-        return regionDao.getRegions().map { Region(it.key, it.name) }
-    }
-
-    suspend fun getLanguages(): List<Language> {
-        return languageDao.getLanguages().map { Language(it.name) }
+    suspend fun removeFavouritePodcast(id: String) {
+        favouritePodcastDao.removePodcast(id)
     }
 
 }

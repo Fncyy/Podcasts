@@ -2,7 +2,7 @@ package hu.bme.aut.android.podcasts.util.paging
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import hu.bme.aut.android.podcasts.domain.Podcast
+import hu.bme.aut.android.podcasts.domain.model.Podcast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

@@ -10,9 +10,9 @@ import co.zsmb.rainbowcake.extensions.exhaustive
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
-import hu.bme.aut.android.podcasts.domain.Language
-import hu.bme.aut.android.podcasts.domain.Region
-import hu.bme.aut.android.podcasts.domain.UserData
+import hu.bme.aut.android.podcasts.shared.domain.model.Language
+import hu.bme.aut.android.podcasts.shared.domain.model.Region
+import hu.bme.aut.android.podcasts.shared.domain.model.UserData
 import hu.bme.aut.android.podcasts.ui.login.LoginViewModel.Companion.STATE_LOGIN
 import hu.bme.aut.android.podcasts.ui.login.LoginViewModel.Companion.STATE_REGISTER
 import hu.bme.aut.android.podcasts.ui.menu.MenuViewModel.*
@@ -40,15 +40,11 @@ class MenuFragment : RainbowCakeFragment<MenuViewState, MenuViewModel>() {
         val data = UserData(
             displayName = user?.displayName ?: "",
             explicitContent = explicitContentButton.isChecked,
-            regions = regionsText.allChips.map {
-                Region(
-                    regions[it.text.toString()] ?: "",
-                    it.text.toString()
-                )
-            }.toMutableList(),
-            languages = languagesText.allChips.map {
-                Language(it.text.toString())
-            }.toMutableList()
+            region = Region(
+                regions[regionsText.text.toString()] ?: "",
+                regionsText.text.toString()
+            ),
+            language = Language(languagesText.text.toString())
         )
         viewModel.updateSettings(user, data)
         super.onStop()
@@ -87,13 +83,8 @@ class MenuFragment : RainbowCakeFragment<MenuViewState, MenuViewModel>() {
         viewState.userData.explicitContent?.let {
             explicitContentButton.isChecked = it
         }
-        explicitContentButton.setOnCheckedChangeListener { _, explicit ->
-            viewModel.updateExplicitContent(
-                (activity as MainActivity).auth.currentUser?.uid ?: "", explicit
-            )
-        }
 
-        regionsText.setText(viewState.userData.regions!!.map { it.name })
+        regionsText.setText(viewState.userData.region?.name)
         regionsText.setAdapter(
             ArrayAdapter(
                 requireContext(),
@@ -102,7 +93,7 @@ class MenuFragment : RainbowCakeFragment<MenuViewState, MenuViewModel>() {
             )
         )
 
-        languagesText.setText(viewState.userData.languages!!.map { it.name })
+        languagesText.setText(viewState.userData.language?.name)
         languagesText.setAdapter(
             ArrayAdapter(
                 requireContext(),
@@ -110,7 +101,6 @@ class MenuFragment : RainbowCakeFragment<MenuViewState, MenuViewModel>() {
                 viewState.availableLanguages.map { it.name }
             )
         )
-        // TODO update the nacho text views so they become multi line
 
         registerButton.setOnClickListener {
             findNavController().navigate(
@@ -144,14 +134,9 @@ class MenuFragment : RainbowCakeFragment<MenuViewState, MenuViewModel>() {
         viewState.userData.explicitContent?.let {
             explicitContentButton.isChecked = it
         }
-        explicitContentButton.setOnCheckedChangeListener { _, explicit ->
-            viewModel.updateExplicitContent(
-                (activity as MainActivity).auth.currentUser?.uid ?: "", explicit
-            )
-        }
 
-        if (viewState.userData.regions?.isNotEmpty() == true)
-            regionsText.setText(viewState.userData.regions.map { it.name })
+        if (viewState.userData.region != null)
+            regionsText.setText(viewState.userData.region?.name)
         regionsText.setAdapter(
             ArrayAdapter(
                 requireContext(),
@@ -160,8 +145,8 @@ class MenuFragment : RainbowCakeFragment<MenuViewState, MenuViewModel>() {
             )
         )
 
-        if (viewState.userData.languages?.isNotEmpty() == true)
-            languagesText.setText(viewState.userData.languages.map { it.name })
+        if (viewState.userData.language != null)
+            languagesText.setText(viewState.userData.language?.name)
         languagesText.setAdapter(
             ArrayAdapter(
                 requireContext(),
@@ -190,16 +175,12 @@ class MenuFragment : RainbowCakeFragment<MenuViewState, MenuViewModel>() {
     override fun onEvent(event: OneShotEvent) {
         when (event) {
             is NewRegionEvent -> {
-                val current = regionsText.allChips
-                val list = current.map { it.text.toString() }.toMutableList()
-                list.add(event.region.name)
-                regionsText.setText(list)
+                regionsText.setText(event.region.name, false)
+                regionsText.setSelection(regionsText.text.length)
             }
             is NewLanguageEvent -> {
-                val current = languagesText.allChips
-                val list = current.map { it.text.toString() }.toMutableList()
-                list.add(event.language.name)
-                languagesText.setText(list)
+                languagesText.setText(event.language.name, false)
+                languagesText.setSelection(languagesText.text.length)
             }
             is NewExplicitEvent ->
                 explicitContentButton.isChecked = event.explicit

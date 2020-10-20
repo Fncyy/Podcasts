@@ -1,9 +1,15 @@
 package hu.bme.aut.android.podcasts.ui.search
 
-sealed class SearchViewState
+import hu.bme.aut.android.podcasts.shared.domain.model.Language
+import hu.bme.aut.android.podcasts.shared.domain.model.Region
+import hu.bme.aut.android.podcasts.shared.domain.model.UserData
 
-object Initial : SearchViewState()
+sealed class SearchViewState
 
 object Loading : SearchViewState()
 
-object SearchReady : SearchViewState()
+data class Initialized(
+    val userData: UserData,
+    val availableRegions: List<Region>,
+    val availableLanguages: List<Language>
+) : SearchViewState()
