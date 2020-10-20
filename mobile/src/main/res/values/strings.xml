@@ -30,7 +30,17 @@
     <string name="register_password">Password</string>
     <string name="register_password_again">Password again</string>
 
+    <string name="search_input_hint">Search for podcasts</string>
+    <string name="search_sort_by_date">Date</string>
+    <string name="search_sort_by_relevance">Relevance</string>
+
     <string name="title_favourites">Favourites</string>
     <string name="title_home">Podcasts</string>
     <string name="title_search">Search</string>
+    <string name="search_button_search">Search</string>
+    <string name="search_language_hint">Language</string>
+    <string name="search_region_hint">Region</string>
+    <string name="search_max_episodes_hint">Max. episodes</string>
+    <string name="search_episode_divider">—</string>
+    <string name="search_min_episodes_hint">Min. episodes</string>
 </resources>

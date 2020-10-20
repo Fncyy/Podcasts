@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:enterFadeDuration="@integer/segmented_control_fade_duration" android:exitFadeDuration="@integer/segmented_control_fade_duration">
+    <item android:state_checked="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/segmented_controls_background" />
+                    <corners android:bottomLeftRadius="@dimen/segmented_control_corner_radius" android:topLeftRadius="@dimen/segmented_control_corner_radius" />
+                </shape>
+            </item>
+            <item android:bottom="@dimen/segmented_control_outer_padding" android:left="@dimen/segmented_control_outer_padding" android:top="@dimen/segmented_control_outer_padding">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/segmented_controls_foreground" />
+                    <corners android:radius="@dimen/segmented_control_corner_radius" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/segmented_controls_background" />
+            <corners android:bottomLeftRadius="@dimen/segmented_control_corner_radius" android:topLeftRadius="@dimen/segmented_control_corner_radius" />
+        </shape>
+    </item>
+</selector>

@@ -72,32 +72,34 @@
                 android:text="@string/menu_explicit_content" />
 
             <TextView
-                android:labelFor="@id/regionsText"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/grid_2"
+                android:labelFor="@id/regionsText"
                 android:text="@string/menu_region" />
 
             <AutoCompleteTextView
                 android:id="@+id/regionsText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/grid_0_5" />
+                android:layout_marginTop="@dimen/grid_0_5"
+                android:selectAllOnFocus="true" />
 
             <TextView
-                android:labelFor="@id/languagesText"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/grid_2"
+                android:labelFor="@id/languagesText"
                 android:text="@string/menu_language" />
 
             <AutoCompleteTextView
                 android:id="@+id/languagesText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/grid_0_5" />
+                android:layout_marginTop="@dimen/grid_0_5"
+                android:selectAllOnFocus="true" />
         </LinearLayout>
     </ScrollView>
 

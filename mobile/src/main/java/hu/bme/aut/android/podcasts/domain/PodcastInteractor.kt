@@ -9,6 +9,7 @@ import hu.bme.aut.android.podcasts.shared.domain.model.Region
 import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
 import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.extensions.toExplicit
+import hu.bme.aut.android.podcasts.util.extensions.toSortBy
 import javax.inject.Inject
 
 class PodcastInteractor @Inject constructor(
@@ -81,7 +82,20 @@ class PodcastInteractor @Inject constructor(
         return networkDataSource.getAvailableLanguages()
     }
 
-    suspend fun getSearchResult(query: String, offset: Int?, safeMode: Int?): SearchResult {
-        return networkDataSource.getSearchResult(query, offset, safeMode)
+    suspend fun getSearchResult(
+        query: String,
+        offset: Int?,
+        language: Language?,
+        region: Region?,
+        sortBy: String?
+    ): SearchResult {
+        return networkDataSource.getSearchResult(
+            query,
+            offset,
+            sharedPreferencesProvider.getExplicitContent().toExplicit(),
+            language,
+            region,
+            sortBy?.toSortBy()
+        )
     }
 }

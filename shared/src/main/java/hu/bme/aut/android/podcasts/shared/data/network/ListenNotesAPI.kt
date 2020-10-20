@@ -36,6 +36,9 @@ interface ListenNotesAPI {
         @Query("q") query: String,
         @Query("offset") offset: Int?,
         @Query("safe_mode") safeMode: Int?,
+        @Query("language") language: String?,
+        @Query("region") region: String?,
+        @Query("sort_by_date") sortBy: Int?,
         @Query("type") type: String = "podcast"
     ): SearchResponse
 }

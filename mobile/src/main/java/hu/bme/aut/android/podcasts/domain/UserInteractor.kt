@@ -14,14 +14,14 @@ class UserInteractor @Inject constructor(
 ) {
 
     suspend fun getUserData(
-        id: String,
+        id: String = "",
         displayName: String = "",
-        listener: FirebaseDatabaseInsertionListener
+        listener: FirebaseDatabaseInsertionListener? = null
     ): UserData {
         return if (id.isEmpty()) {
             diskDataSource.getUserData(displayName)
         } else {
-            firebaseDatabaseAccessor.getUserData(id, displayName, listener)
+            firebaseDatabaseAccessor.getUserData(id, displayName, listener!!)
         }
     }
 

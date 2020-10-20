@@ -46,8 +46,21 @@ class NetworkDataSource @Inject constructor(
         return listenNotesAPI.getPodcast(id).toFullPodcast(genreDecoder, favouriteDecoder)
     }
 
-    suspend fun getSearchResult(query: String, offset: Int?, safeMode: Int?): SearchResult {
-        return listenNotesAPI.getSearchResult(query, offset, safeMode)
-            .toSearchResult(genreDecoder, favouriteDecoder)
+    suspend fun getSearchResult(
+        query: String,
+        offset: Int?,
+        safeMode: Int?,
+        language: Language?,
+        region: Region?,
+        sortBy: Int?
+    ): SearchResult {
+        return listenNotesAPI.getSearchResult(
+            query,
+            offset,
+            safeMode,
+            language?.name,
+            region?.key,
+            sortBy
+        ).toSearchResult(genreDecoder, favouriteDecoder)
     }
 }
