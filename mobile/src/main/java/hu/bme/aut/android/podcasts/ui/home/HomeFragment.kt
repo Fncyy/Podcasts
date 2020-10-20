@@ -2,12 +2,14 @@ package hu.bme.aut.android.podcasts.ui.home
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewTreeObserver
 import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
@@ -31,12 +33,18 @@ class HomeFragment :
     lateinit var favouriteDecoder: FavouriteDecoder
     private lateinit var podcastAdapter: PodcastAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         postponeEnterTransition()
         view.doOnPreDraw {
             startPostponedEnterTransition()
+            enterTransition = MaterialFadeThrough()
+            exitTransition = MaterialFadeThrough()
         }
 
         // TODO Setup views
@@ -87,4 +95,15 @@ class HomeFragment :
         viewModel.updateStarred((activity as MainActivity).auth.currentUser, id, starred)
     }
 
+}
+
+inline fun <T : View> T.afterMeasure(crossinline f: T.() -> Unit) {
+    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
+            if (measuredWidth > 0 && measuredHeight > 0) {
+                viewTreeObserver.removeOnGlobalLayoutListener(this)
+                f()
+            }
+        }
+    })
 }
