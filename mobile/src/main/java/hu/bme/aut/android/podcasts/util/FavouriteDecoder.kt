@@ -28,7 +28,7 @@ class FavouriteDecoder @Inject constructor(
             )
         favourites.apply {
             clear()
-            addAll(response)
+            addAll(response.filter { it.isNotBlank() })
         }
         initialized = true
     }
@@ -60,7 +60,7 @@ class FavouriteDecoder @Inject constructor(
     }
 
     override fun onFavouriteAdded(id: String) {
-        if (id.isEmpty())
+        if (id.isBlank())
             return
         if (!favourites.contains(id))
             favourites.add(id)
