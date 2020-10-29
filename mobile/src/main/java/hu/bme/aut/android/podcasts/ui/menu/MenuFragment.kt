@@ -1,5 +1,6 @@
 package hu.bme.aut.android.podcasts.ui.menu
 
+import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.core.view.children
@@ -7,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import co.zsmb.rainbowcake.base.OneShotEvent
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.extensions.exhaustive
+import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
@@ -28,6 +30,12 @@ class MenuFragment : RainbowCakeFragment<MenuViewState, MenuViewModel>() {
     override fun getViewResource() = R.layout.fragment_menu
 
     private val regions: MutableMap<String, String> = mutableMapOf()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough()
+        exitTransition = MaterialFadeThrough()
+    }
 
     override fun onStart() {
         super.onStart()

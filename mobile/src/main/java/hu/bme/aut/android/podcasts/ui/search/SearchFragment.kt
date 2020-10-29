@@ -6,11 +6,11 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.core.view.children
-import androidx.core.view.doOnPreDraw
 import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.recyclerview.widget.ItemTouchHelper
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
+import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
@@ -39,13 +39,14 @@ class SearchFragment :
     private lateinit var podcastAdapter: PodcastAdapter
     private val regionMap = mutableMapOf<String, String>()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough()
+        exitTransition = MaterialFadeThrough()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        postponeEnterTransition()
-        view.doOnPreDraw {
-            startPostponedEnterTransition()
-        }
 
         viewModel.loadUserData()
         setupViews()

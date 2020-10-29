@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
@@ -36,6 +37,8 @@ class FavouritesFragment : RainbowCakeFragment<FavouritesViewState, FavouritesVi
         postponeEnterTransition()
         view.doOnPreDraw {
             startPostponedEnterTransition()
+            enterTransition = MaterialFadeThrough()
+            exitTransition = MaterialFadeThrough()
         }
 
         setupRecyclerView()
