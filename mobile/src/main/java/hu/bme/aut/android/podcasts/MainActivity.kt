@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.navHostFragment, fragment, fragment.tag)
-            .addToBackStack(fragment.tag)
             .commit()
     }
 
