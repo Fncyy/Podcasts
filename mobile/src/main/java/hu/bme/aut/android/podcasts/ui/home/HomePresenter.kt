@@ -1,10 +1,10 @@
 package hu.bme.aut.android.podcasts.ui.home
 
+import hu.bme.aut.android.podcasts.data.network.FirebaseDatabaseAccessor.FirebaseDatabaseInsertionListener
 import hu.bme.aut.android.podcasts.domain.PodcastInteractor
 import hu.bme.aut.android.podcasts.domain.UserInteractor
 import hu.bme.aut.android.podcasts.domain.model.Podcast
 import hu.bme.aut.android.podcasts.shared.domain.model.UserData
-import hu.bme.aut.android.podcasts.util.FirebaseDatabaseAccessor.FirebaseDatabaseInsertionListener
 import javax.inject.Inject
 
 class HomePresenter @Inject constructor(

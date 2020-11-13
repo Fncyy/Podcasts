@@ -13,8 +13,8 @@ import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
-import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.animation.ReboundingSwipeActionCallback
+import hu.bme.aut.android.podcasts.util.decoders.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.paging.PodcastAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject

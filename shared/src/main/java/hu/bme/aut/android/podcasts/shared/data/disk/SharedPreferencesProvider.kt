@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.shared.util
+package hu.bme.aut.android.podcasts.shared.data.disk
 
 import android.content.Context
 import android.content.SharedPreferences

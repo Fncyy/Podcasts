@@ -2,8 +2,8 @@ package hu.bme.aut.android.podcasts.data.disk
 
 import hu.bme.aut.android.podcasts.data.disk.entities.RoomFavouritePodcastItem
 import hu.bme.aut.android.podcasts.domain.model.FullPodcast
+import hu.bme.aut.android.podcasts.shared.data.disk.SharedPreferencesProvider
 import hu.bme.aut.android.podcasts.shared.domain.model.UserData
-import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
 import javax.inject.Inject
 import javax.inject.Singleton
 

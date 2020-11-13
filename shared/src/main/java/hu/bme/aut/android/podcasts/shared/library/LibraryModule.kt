@@ -6,8 +6,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import hu.bme.aut.android.podcasts.shared.data.disk.SharedPreferencesProvider
 import hu.bme.aut.android.podcasts.shared.data.network.ListenNotesAPI
-import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
 import javax.inject.Singleton
 
 @Module

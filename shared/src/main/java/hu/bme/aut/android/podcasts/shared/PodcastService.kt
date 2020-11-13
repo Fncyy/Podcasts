@@ -14,10 +14,10 @@ import com.google.android.exoplayer2.ext.mediasession.TimelineQueueNavigator
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import dagger.hilt.android.AndroidEntryPoint
-import hu.bme.aut.android.podcasts.shared.extensions.flag
 import hu.bme.aut.android.podcasts.shared.library.BrowseTree
 import hu.bme.aut.android.podcasts.shared.library.PODCASTS_BROWSABLE_ROOT
 import hu.bme.aut.android.podcasts.shared.library.PodcastSource
+import hu.bme.aut.android.podcasts.shared.util.extensions.flag
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

@@ -16,8 +16,8 @@ import hu.bme.aut.android.podcasts.MainActivity
 import hu.bme.aut.android.podcasts.R
 import hu.bme.aut.android.podcasts.shared.domain.model.Language
 import hu.bme.aut.android.podcasts.shared.domain.model.Region
-import hu.bme.aut.android.podcasts.util.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.animation.ReboundingSwipeActionCallback
+import hu.bme.aut.android.podcasts.util.decoders.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.extensions.DATE
 import hu.bme.aut.android.podcasts.util.extensions.RELEVANCE
 import hu.bme.aut.android.podcasts.util.paging.PodcastAdapter

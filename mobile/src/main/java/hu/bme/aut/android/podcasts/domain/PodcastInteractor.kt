@@ -4,10 +4,10 @@ import dagger.Lazy
 import hu.bme.aut.android.podcasts.data.disk.DiskDataSource
 import hu.bme.aut.android.podcasts.data.network.NetworkDataSource
 import hu.bme.aut.android.podcasts.domain.model.*
+import hu.bme.aut.android.podcasts.shared.data.disk.SharedPreferencesProvider
 import hu.bme.aut.android.podcasts.shared.domain.model.Language
 import hu.bme.aut.android.podcasts.shared.domain.model.Region
-import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
-import hu.bme.aut.android.podcasts.util.FavouriteDecoder
+import hu.bme.aut.android.podcasts.util.decoders.FavouriteDecoder
 import hu.bme.aut.android.podcasts.util.extensions.toExplicit
 import hu.bme.aut.android.podcasts.util.extensions.toSortBy
 import javax.inject.Inject

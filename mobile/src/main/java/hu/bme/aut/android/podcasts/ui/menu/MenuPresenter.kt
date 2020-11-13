@@ -1,11 +1,11 @@
 package hu.bme.aut.android.podcasts.ui.menu
 
+import hu.bme.aut.android.podcasts.data.network.FirebaseDatabaseAccessor.FirebaseDatabaseInsertionListener
 import hu.bme.aut.android.podcasts.domain.PodcastInteractor
 import hu.bme.aut.android.podcasts.domain.UserInteractor
 import hu.bme.aut.android.podcasts.shared.domain.model.Language
 import hu.bme.aut.android.podcasts.shared.domain.model.Region
 import hu.bme.aut.android.podcasts.shared.domain.model.UserData
-import hu.bme.aut.android.podcasts.util.FirebaseDatabaseAccessor.FirebaseDatabaseInsertionListener
 import javax.inject.Inject
 
 class MenuPresenter @Inject constructor(
