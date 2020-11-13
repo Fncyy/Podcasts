@@ -5,10 +5,10 @@ import androidx.lifecycle.Transformations.switchMap
 import co.zsmb.rainbowcake.base.RainbowCakeViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import hu.bme.aut.android.podcasts.data.network.FirebaseDatabaseAccessor
 import hu.bme.aut.android.podcasts.domain.model.Podcast
 import hu.bme.aut.android.podcasts.shared.domain.model.Language
 import hu.bme.aut.android.podcasts.shared.domain.model.Region
-import hu.bme.aut.android.podcasts.util.FirebaseDatabaseAccessor
 import hu.bme.aut.android.podcasts.util.paging.BestRepository
 import hu.bme.aut.android.podcasts.util.paging.Listing
 import java.util.concurrent.ConcurrentHashMap

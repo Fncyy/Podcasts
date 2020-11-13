@@ -4,10 +4,10 @@ import android.util.Log
 import co.zsmb.rainbowcake.base.OneShotEvent
 import co.zsmb.rainbowcake.base.RainbowCakeViewModel
 import com.google.firebase.auth.FirebaseUser
+import hu.bme.aut.android.podcasts.data.network.FirebaseDatabaseAccessor
 import hu.bme.aut.android.podcasts.shared.domain.model.Language
 import hu.bme.aut.android.podcasts.shared.domain.model.Region
 import hu.bme.aut.android.podcasts.shared.domain.model.UserData
-import hu.bme.aut.android.podcasts.util.FirebaseDatabaseAccessor
 import javax.inject.Inject
 
 class MenuViewModel @Inject constructor(

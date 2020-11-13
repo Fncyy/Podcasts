@@ -12,9 +12,9 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import hu.bme.aut.android.podcasts.shared.R
+import hu.bme.aut.android.podcasts.shared.data.disk.SharedPreferencesProvider
 import hu.bme.aut.android.podcasts.shared.data.network.ListenNotesAPI
-import hu.bme.aut.android.podcasts.shared.extensions.*
-import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
+import hu.bme.aut.android.podcasts.shared.util.extensions.*
 import java.io.File
 import java.util.concurrent.TimeUnit
 

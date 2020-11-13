@@ -1,10 +1,10 @@
-package hu.bme.aut.android.podcasts.util
+package hu.bme.aut.android.podcasts.data.network
 
 import com.google.firebase.database.*
+import hu.bme.aut.android.podcasts.shared.data.disk.SharedPreferencesProvider
 import hu.bme.aut.android.podcasts.shared.domain.model.Language
 import hu.bme.aut.android.podcasts.shared.domain.model.Region
 import hu.bme.aut.android.podcasts.shared.domain.model.UserData
-import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
 import javax.inject.Inject
 
 class FirebaseDatabaseAccessor @Inject constructor(

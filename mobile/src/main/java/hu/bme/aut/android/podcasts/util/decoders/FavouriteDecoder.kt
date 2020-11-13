@@ -1,9 +1,10 @@
-package hu.bme.aut.android.podcasts.util
+package hu.bme.aut.android.podcasts.util.decoders
 
 import com.google.firebase.auth.FirebaseAuth
+import hu.bme.aut.android.podcasts.data.network.FirebaseDatabaseAccessor
+import hu.bme.aut.android.podcasts.data.network.FirebaseDatabaseAccessor.FirebaseDatabaseInsertionListener
 import hu.bme.aut.android.podcasts.domain.UserInteractor
-import hu.bme.aut.android.podcasts.shared.util.SharedPreferencesProvider
-import hu.bme.aut.android.podcasts.util.FirebaseDatabaseAccessor.FirebaseDatabaseInsertionListener
+import hu.bme.aut.android.podcasts.shared.data.disk.SharedPreferencesProvider
 import javax.inject.Inject
 import javax.inject.Singleton
 

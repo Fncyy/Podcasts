@@ -8,8 +8,8 @@ import hu.bme.aut.android.podcasts.domain.model.SearchResult
 import hu.bme.aut.android.podcasts.shared.data.network.ListenNotesAPI
 import hu.bme.aut.android.podcasts.shared.domain.model.Language
 import hu.bme.aut.android.podcasts.shared.domain.model.Region
-import hu.bme.aut.android.podcasts.util.FavouriteDecoder
-import hu.bme.aut.android.podcasts.util.GenreDecoder
+import hu.bme.aut.android.podcasts.util.decoders.FavouriteDecoder
+import hu.bme.aut.android.podcasts.util.decoders.GenreDecoder
 import hu.bme.aut.android.podcasts.util.extensions.toInt
 import javax.inject.Inject
 import javax.inject.Singleton

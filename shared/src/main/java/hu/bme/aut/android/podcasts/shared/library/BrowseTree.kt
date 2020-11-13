@@ -2,7 +2,7 @@ package hu.bme.aut.android.podcasts.shared.library
 
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
-import hu.bme.aut.android.podcasts.shared.extensions.*
+import hu.bme.aut.android.podcasts.shared.util.extensions.*
 import javax.inject.Inject
 
 /**

@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.shared.extensions
+package hu.bme.aut.android.podcasts.shared.util.extensions
 
 import android.graphics.Bitmap
 import android.net.Uri

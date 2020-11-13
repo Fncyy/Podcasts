@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.shared.extensions
+package hu.bme.aut.android.podcasts.shared.util.extensions
 
 import android.net.Uri
 

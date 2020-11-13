@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.util
+package hu.bme.aut.android.podcasts.util.decoders
 
 import hu.bme.aut.android.podcasts.domain.PodcastInteractor
 import javax.inject.Inject
