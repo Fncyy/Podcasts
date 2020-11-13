@@ -13,9 +13,9 @@ import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import com.google.android.exoplayer2.upstream.DataSource
 import hu.bme.aut.android.podcasts.shared.util.extensions.album
 import hu.bme.aut.android.podcasts.shared.util.extensions.id
-import hu.bme.aut.android.podcasts.shared.util.extensions.library.PodcastSource
 import hu.bme.aut.android.podcasts.shared.util.extensions.toMediaSource
 import hu.bme.aut.android.podcasts.shared.util.extensions.trackNumber
+import hu.bme.aut.android.podcasts.shared.util.library.PodcastSource
 
 class PodcastsPlaybackPreparer(
     private val podcastSource: PodcastSource,
