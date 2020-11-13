@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.shared.library
+package hu.bme.aut.android.podcasts.shared.util.extensions.library
 
 import android.os.Bundle
 import android.support.v4.media.MediaMetadataCompat

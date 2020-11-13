@@ -1,4 +1,4 @@
-package hu.bme.aut.android.podcasts.shared.library
+package hu.bme.aut.android.podcasts.shared.util.extensions.library
 
 import android.content.Context
 import dagger.Module
