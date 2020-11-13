@@ -166,7 +166,7 @@ class MenuFragment : RainbowCakeFragment<MenuViewState, MenuViewModel>() {
         logButton.setOnClickListener {
             (activity as MainActivity).auth.let {
                 it.signOut()
-                viewModel.load(it.currentUser)
+                viewModel.load(null)
             }
         }
     }

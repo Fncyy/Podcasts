@@ -86,7 +86,8 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>(),
             if (registerValidity()) {
                 loginRegisterButton.visibility = View.INVISIBLE
                 statusProgressBar.visibility = View.VISIBLE
-                (activity as MainActivity).auth.createUserWithEmailAndPassword(
+                val auth = (activity as MainActivity).auth
+                auth.createUserWithEmailAndPassword(
                     emailInput.text.toString(),
                     passwordInput.text.toString()
                 ).addOnCompleteListener { task ->
@@ -103,6 +104,11 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>(),
                             )
                             viewModel.migrateData(it.uid, this)
                         }
+                        auth.signInWithEmailAndPassword(
+                            emailInput.text.toString(),
+                            passwordInput.text.toString()
+                        )
+                        findNavController().popBackStack()
                     } else {
                         Snackbar.make(
                             loginFragmentRoot,
