@@ -147,6 +147,10 @@ class LoginFragment : RainbowCakeFragment<LoginViewState, LoginViewModel>(),
     }
 
     override fun onMigrationComplete() {
+        (activity as MainActivity).auth.signInWithEmailAndPassword(
+            emailInput.text.toString(),
+            passwordInput.text.toString()
+        )
         findNavController().popBackStack()
     }
 }
