@@ -20,7 +20,6 @@ class MenuViewModel @Inject constructor(
     class NewExplicitEvent(val explicit: Boolean) : OneShotEvent
 
     fun load(user: FirebaseUser?) = execute {
-        viewState = Loading
         viewState = if (user == null) {
             val userId = ""
             LoggedOut(

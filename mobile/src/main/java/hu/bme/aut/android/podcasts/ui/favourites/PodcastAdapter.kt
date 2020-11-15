@@ -21,8 +21,7 @@ import kotlin.math.abs
 class PodcastAdapter(
     private val context: Context,
     favouriteDecoder: FavouriteDecoder
-) :
-    RecyclerView.Adapter<PodcastAdapter.ViewHolder>(),
+) : RecyclerView.Adapter<PodcastAdapter.ViewHolder>(),
     FavouriteDecoder.FavouriteListener {
 
     init {
