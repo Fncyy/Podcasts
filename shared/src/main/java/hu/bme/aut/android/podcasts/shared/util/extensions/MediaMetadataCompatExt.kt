@@ -169,25 +169,11 @@ inline var MediaMetadataCompat.Builder.albumArtUri: String?
         putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI, value)
     }
 
-inline var MediaMetadataCompat.Builder.albumArt: Bitmap?
-    @Deprecated(NO_GET, level = DeprecationLevel.ERROR)
-    get() = throw IllegalAccessException(GETTER_ERROR)
-    set(value) {
-        putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, value)
-    }
-
 inline var MediaMetadataCompat.Builder.trackNumber: Long
     @Deprecated(NO_GET, level = DeprecationLevel.ERROR)
     get() = throw IllegalAccessException(GETTER_ERROR)
     set(value) {
         putLong(MediaMetadataCompat.METADATA_KEY_TRACK_NUMBER, value)
-    }
-
-inline var MediaMetadataCompat.Builder.trackCount: Long
-    @Deprecated(NO_GET, level = DeprecationLevel.ERROR)
-    get() = throw IllegalAccessException(GETTER_ERROR)
-    set(value) {
-        putLong(MediaMetadataCompat.METADATA_KEY_NUM_TRACKS, value)
     }
 
 inline var MediaMetadataCompat.Builder.displayTitle: String?
@@ -216,13 +202,6 @@ inline var MediaMetadataCompat.Builder.displayIconUri: String?
     get() = throw IllegalAccessException(GETTER_ERROR)
     set(value) {
         putString(MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON_URI, value)
-    }
-
-inline var MediaMetadataCompat.Builder.downloadStatus: Long
-    @Deprecated(NO_GET, level = DeprecationLevel.ERROR)
-    get() = throw IllegalAccessException(GETTER_ERROR)
-    set(value) {
-        putLong(MediaMetadataCompat.METADATA_KEY_DOWNLOAD_STATUS, value)
     }
 
 @MediaBrowserCompat.MediaItem.Flags
