@@ -1,0 +1,15 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+!/.idea/codeStyles
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+apikey.properties
+
+# Project exclude paths
+/shared/build/
+/shared/build/intermediates/javac/debug/classes/

@@ -1,0 +1,4 @@
+include ':automotive'
+include ':mobile'
+include ':shared'
+rootProject.name = "Podcasts"
