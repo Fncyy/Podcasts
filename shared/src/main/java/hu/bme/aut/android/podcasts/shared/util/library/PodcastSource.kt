@@ -1,6 +1,5 @@
 package hu.bme.aut.android.podcasts.shared.util.library
 
-import android.os.Bundle
 import android.support.v4.media.MediaMetadataCompat
 import androidx.annotation.IntDef
 import hu.bme.aut.android.podcasts.shared.PodcastService
@@ -23,8 +22,6 @@ interface PodcastSource : Iterable<MediaMetadataCompat> {
      * indicates an error occurred.
      */
     fun whenReady(performAction: (Boolean) -> Unit): Boolean
-
-    fun search(query: String, extras: Bundle): List<MediaMetadataCompat>
 }
 
 @IntDef(

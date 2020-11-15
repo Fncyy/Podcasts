@@ -3,7 +3,6 @@ package hu.bme.aut.android.podcasts.shared.util.library
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
-import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.util.Log
@@ -87,10 +86,6 @@ class NetworkSource(
         }
         updatedCatalog.forEach { it.description.extras?.putAll(it.bundle) }
         return updatedCatalog
-    }
-
-    override fun search(query: String, extras: Bundle): List<MediaMetadataCompat> {
-        TODO("not implemented")
     }
 }
 
