@@ -13,7 +13,7 @@ class UserInteractor @Inject constructor(
     private val sharedPreferencesProvider: SharedPreferencesProvider
 ) {
 
-    suspend fun getUserData(
+    fun getUserData(
         id: String = "",
         displayName: String = "",
         listener: FirebaseDatabaseInsertionListener? = null
@@ -25,13 +25,13 @@ class UserInteractor @Inject constructor(
         }
     }
 
-    suspend fun updateUserData(id: String, data: UserData) {
+    fun updateUserData(id: String, data: UserData) {
         diskDataSource.updateUserData(data)
         if (id.isNotEmpty())
             firebaseDatabaseAccessor.updateUserData(id, data)
     }
 
-    suspend fun migrateData(id: String) {
+    fun migrateData(id: String) {
         firebaseDatabaseAccessor.updateUserData(id, diskDataSource.getUserData(""))
     }
 
