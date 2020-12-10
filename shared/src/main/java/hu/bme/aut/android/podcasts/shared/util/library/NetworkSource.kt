@@ -1,20 +1,14 @@
 package hu.bme.aut.android.podcasts.shared.util.library
 
-import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
-import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
-import hu.bme.aut.android.podcasts.shared.R
 import hu.bme.aut.android.podcasts.shared.data.disk.SharedPreferencesProvider
 import hu.bme.aut.android.podcasts.shared.data.network.ListenNotesAPI
 import hu.bme.aut.android.podcasts.shared.util.extensions.*
-import java.io.File
 import java.util.concurrent.TimeUnit
 
 class NetworkSource(
@@ -48,16 +42,6 @@ class NetworkSource(
         favourites.forEach { favourite ->
             val podcast = listenNotesAPI.getPodcast(favourite)
             podcast.episodes.forEach { episode ->
-                val artFile = glide.applyDefaultRequestOptions(glideOptions)
-                    .downloadOnly()
-                    .load(episode.image)
-                    .submit(144, 144)
-                    .get()
-
-                val artUri = artFile.asAlbumArtContentUri()
-
-                Log.d("DisplayIcon", Uri.decode(episode.image))
-
                 val media = MediaMetadataCompat.Builder()
                     .apply {
                         val durationMs =
@@ -88,14 +72,3 @@ class NetworkSource(
         return updatedCatalog
     }
 }
-
-private fun File.asAlbumArtContentUri(): Uri {
-    return Uri.Builder()
-        .scheme(ContentResolver.SCHEME_CONTENT)
-        .appendPath(this.path)
-        .build()
-}
-
-private val glideOptions = RequestOptions()
-    .fallback(R.mipmap.ic_launcher)
-    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)

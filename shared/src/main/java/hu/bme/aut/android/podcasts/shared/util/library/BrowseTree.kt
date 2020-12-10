@@ -6,7 +6,7 @@ import hu.bme.aut.android.podcasts.shared.util.extensions.*
 import javax.inject.Inject
 
 /**
- * Represents a tree of media that's used by [MusicService.onLoadChildren].
+ * Represents a tree of media that's used by [PodcastService.onLoadChildren].
  *
  * [BrowseTree] maps a media id (see: [MediaMetadataCompat.METADATA_KEY_MEDIA_ID]) to one (or
  * more) [MediaMetadataCompat] objects, which are children of that media id.

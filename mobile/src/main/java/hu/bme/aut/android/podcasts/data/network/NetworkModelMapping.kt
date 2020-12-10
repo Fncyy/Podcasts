@@ -76,7 +76,7 @@ suspend fun SearchResponse.toSearchResult(
     total = total ?: 0
 )
 
-suspend fun hu.bme.aut.android.podcasts.shared.data.network.model.Result.toPodcast(
+suspend fun Result.toPodcast(
     genreDecoder: Lazy<GenreDecoder>,
     favouriteDecoder: Lazy<FavouriteDecoder>
 ) = DomainPodcast(

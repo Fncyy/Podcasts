@@ -15,10 +15,10 @@ class DiskDataSource @Inject constructor(
     private val sharedPreferencesProvider: SharedPreferencesProvider
 ) {
 
-    suspend fun getUserData(displayName: String) =
+    fun getUserData(displayName: String) =
         sharedPreferencesProvider.getUserData(displayName)
 
-    suspend fun updateUserData(userData: UserData) {
+    fun updateUserData(userData: UserData) {
         sharedPreferencesProvider.updateUserData(userData)
     }
 
@@ -32,24 +32,12 @@ class DiskDataSource @Inject constructor(
         bestPodcastDao.insertAllPodcasts(podcasts.map(FullPodcast::toRoomBestPodcastItem))
     }
 
-    suspend fun insertAllSearchPodcasts(podcasts: List<FullPodcast>) {
-        searchPodcastDao.insertAllPodcasts(podcasts.map(FullPodcast::toRoomSearchPodcastItem))
-    }
-
-    suspend fun insertAllFavouritePodcasts(podcasts: List<FullPodcast>) {
-        favouritePodcastDao.insertAllPodcasts(podcasts.map(FullPodcast::toRoomFavouritePodcastItem))
-    }
-
     suspend fun removeAllBestPodcasts() {
         bestPodcastDao.removeAllPodcasts()
     }
 
     suspend fun removeAllSearchPodcasts() {
         searchPodcastDao.removeAllPodcasts()
-    }
-
-    suspend fun removeAllFavouritePodcasts() {
-        favouritePodcastDao.removeAllPodcasts()
     }
 
     suspend fun getAllFavouritePodcasts(): List<FullPodcast> {

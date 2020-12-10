@@ -119,38 +119,6 @@ class PodcastService : MediaBrowserServiceCompat() {
             result.detach()
     }
 
-    /**
-     * Returns the basic actions that are always available and specific actions according to [state]
-     */
-    @PlaybackStateCompat.Actions
-    private fun getAvailableActions(): Long {
-        var actions = (PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID
-                or PlaybackStateCompat.ACTION_SKIP_TO_NEXT
-                or PlaybackStateCompat.ACTION_FAST_FORWARD
-                or PlaybackStateCompat.ACTION_REWIND
-                or PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
-                or PlaybackStateCompat.ACTION_SKIP_TO_QUEUE_ITEM)
-        actions = when (state) {
-            PlaybackStateCompat.STATE_STOPPED -> (actions
-                    or PlaybackStateCompat.ACTION_PLAY
-                    or PlaybackStateCompat.ACTION_PAUSE)
-
-            PlaybackStateCompat.STATE_PLAYING -> (actions
-                    or PlaybackStateCompat.ACTION_STOP
-                    or PlaybackStateCompat.ACTION_PAUSE)
-
-            PlaybackStateCompat.STATE_PAUSED -> (actions
-                    or PlaybackStateCompat.ACTION_PLAY
-                    or PlaybackStateCompat.ACTION_STOP)
-
-            else -> (actions
-                    or PlaybackStateCompat.ACTION_PLAY
-                    or PlaybackStateCompat.ACTION_PLAY_PAUSE
-                    or PlaybackStateCompat.ACTION_STOP
-                    or PlaybackStateCompat.ACTION_PAUSE)
-        }
-        return actions
-    }
 }
 
 

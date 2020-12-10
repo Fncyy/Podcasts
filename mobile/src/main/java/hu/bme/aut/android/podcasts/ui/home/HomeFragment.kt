@@ -2,7 +2,6 @@ package hu.bme.aut.android.podcasts.ui.home
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewTreeObserver
 import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
@@ -32,10 +31,6 @@ class HomeFragment :
     @Inject
     lateinit var favouriteDecoder: FavouriteDecoder
     private lateinit var podcastAdapter: PodcastAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -97,13 +92,3 @@ class HomeFragment :
 
 }
 
-inline fun <T : View> T.afterMeasure(crossinline f: T.() -> Unit) {
-    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-        override fun onGlobalLayout() {
-            if (measuredWidth > 0 && measuredHeight > 0) {
-                viewTreeObserver.removeOnGlobalLayoutListener(this)
-                f()
-            }
-        }
-    })
-}
